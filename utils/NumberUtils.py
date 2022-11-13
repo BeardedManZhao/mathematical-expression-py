@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+# @Time : 2022/11/12 12:32
+# @Author : zhao
+# @Email : liming7887@qq.com
+# @File : NumberUtils.py
+# @Project : mathematical-expression-py
+
+from exceptional import AbnormalOperation
+from exceptional.AbnormalOperation import AbnormalOperation
+
+NumericalDictionary: dict = {
+    '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9
+}
+
+
+def absolute_value(number: int):
+    """
+    获取到一个数值的绝对值
+    :param number: 需要被转换成为绝对值的数值
+    :return: number 的绝对值
+    """
+    return number if number > 1 else -number
+
+
+def tenfold(number: int) -> int:
+    """
+    将一个数值乘10，并返回结果
+    :param number: 需要被做十倍乘法的数值
+    :return: 数值 * 10
+    """
+    return ((number << 2) << 1) + (number << 1)
+
+
+def divide_ten(number: int) -> float:
+    """
+    将一个数值除以10，并返回结果
+    :param number: 需要被做十倍除法的数值
+    :return: 数值 / 10
+    """
+    return (number >> 1) / 5
+
+
+def power_of_ten(number: int, n: int) -> int:
+    """
+    将一个数值乘以10的n次方
+    :param number 需要被做乘法的数值
+    :param n 次方数量
+    :return: number 乘以10的 n 次方结果数值
+    """
+    res: int = number
+    for i in range(1, n):
+        res = tenfold(res)
+    return res
+
+
+def priority_comparison(c1: str, c2: str):
+    """
+    将两个运算符的优先级进行比较
+    :param c1: 运算符1
+    :param c2: 运算符2
+    :return: 运算符1的优先级如果小于运算符2，那么该函数返回True
+    """
+    return (c1 == '+' or c1 == '-') and (c2 == '*' or c2 == '/' or c2 == '%')
+
+
+def calculation(calculation_char: str, an: float, bn: float) -> float:
+    """
+    使用不同的字符，计算两个数值
+    :param calculation_char: 运算符
+    :param an: 数值1
+    :param bn: 数值2
+    :return: 数值1与数值2之间进行运算的结果数值，如果运算符错误，则抛出异常
+    """
+    if calculation_char == '+':
+        return an + bn
+    elif calculation_char == '-':
+        return an - bn
+    elif calculation_char == '*':
+        return an * bn
+    elif calculation_char == '/':
+        return an / bn
+    elif calculation_char == '%':
+        return an % bn
+    else:
+        raise AbnormalOperation(
+            "操作数计算异常，您的计算模式不存在，错误的计算模式 = [" + calculation_char + "]\n"
+                                                                                        "Operand calculation "
+                                                                                        "exception. Your calculation "
+                                                                                        "mode does not exist. Wrong "
+                                                                                        "calculation mode "
+                                                                                        "= [" + calculation_char + "]")
