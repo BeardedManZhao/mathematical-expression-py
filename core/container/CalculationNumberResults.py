@@ -10,7 +10,8 @@ from core.container.CalculationResults import CalculationResults
 class CalculationNumberResults(CalculationResults):
     """
     数值计算结果存储对象，在该类中存储的都是来自计算组件的计算结果，以及运算级别层数等信息
-    Numerical calculation result storage object. In this class, the calculation results from calculation components, as well as the number of operation levels and other information are stored
+    Numerical calculation result storage object. In this class, the calculation results from calculation components,
+    as well as the number of operation levels and other information are stored
     """
     result_layers: int
     calculation_source_name: str
@@ -39,3 +40,27 @@ class CalculationNumberResults(CalculationResults):
         return self.result
 
     def __str__(self): return str(self.result)
+
+    def __lt__(self, other):
+        """小于"""
+        return self.result < other.result
+
+    def __le__(self, other):
+        """小于等于"""
+        return self.result <= other.result
+
+    def __gt__(self, other):
+        """大于"""
+        return self.result > other.result
+
+    def __ge__(self, other):
+        """大于等于"""
+        return self.result >= other.result
+
+    def __eq__(self, other):
+        """等于"""
+        return self.result == other.result
+
+    def __ne__(self, other):
+        """不等于"""
+        return self.result != other.result

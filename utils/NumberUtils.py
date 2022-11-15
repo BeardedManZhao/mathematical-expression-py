@@ -4,7 +4,6 @@
 # @Email : liming7887@qq.com
 # @File : NumberUtils.py
 # @Project : mathematical-expression-py
-
 from exceptional import AbnormalOperation
 from exceptional.AbnormalOperation import AbnormalOperation
 
@@ -89,3 +88,30 @@ def calculation(calculation_char: str, an: float, bn: float) -> float:
                                                                                         "mode does not exist. Wrong "
                                                                                         "calculation mode "
                                                                                         "= [" + calculation_char + "]")
+
+
+def comparison_operation(calculation_char: str, left: float, right: float) -> bool:
+    """
+    将两个数值进行比较运算
+    :param calculation_char: 比较运算符号
+    :param left: 左值
+    :param right:右值
+    :return:左值 与 右值 之间是否符合比较运算符的关系
+            Whether the left value and right value conform to the comparison operator
+    """
+    if calculation_char == '>':
+        return left > right
+    elif calculation_char == '<':
+        return left < right
+    elif calculation_char == '>=':
+        return left >= right
+    elif calculation_char == '<=':
+        return left <= right
+    elif calculation_char == '=' or calculation_char == '==':
+        return left == right
+    elif calculation_char == '!=' or calculation_char == '<>':
+        return left != right
+    else:
+        raise AbnormalOperation("无法进行比较运算，因为有错误的运算符。\n"
+                                "The comparison operation cannot be performed because there is an incorrect operator.\n"
+                                "Bad comparison operator => " + calculation_char)

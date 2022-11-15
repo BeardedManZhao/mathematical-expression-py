@@ -16,21 +16,24 @@ def string_to_double(string: str):
     :param string: 需要被转换的字符串
     :return: 转换之后的浮点数值
     """
-    int_res: int = 0
-    float_res: int = 0
-    is_int: bool = True
-    for c in string:
-        if c != '.' and c != ' ':
-            if is_int:
-                int_res = NumberUtils.tenfold(int_res) + char_to_integer(c)
-            else:
-                float_res = NumberUtils.tenfold(float_res) + char_to_integer(c)
-        elif c == '.':
-            is_int = False
-    res = int_res + float_res / NumberUtils.power_of_ten(10, int(0 if float_res == 0 else NumberUtils.divide_ten(
-        int(float_res - NumberUtils.divide_ten(float_res))
-    )))
-    return res if string[0] != '-' else -res
+    if len(string) > 0:
+        int_res: int = 0
+        float_res: int = 0
+        is_int: bool = True
+        for c in string:
+            if c != '.' and c != ' ':
+                if is_int:
+                    int_res = NumberUtils.tenfold(int_res) + char_to_integer(c)
+                else:
+                    float_res = NumberUtils.tenfold(float_res) + char_to_integer(c)
+            elif c == '.':
+                is_int = False
+        res = int_res + float_res / NumberUtils.power_of_ten(10, int(0 if float_res == 0 else NumberUtils.divide_ten(
+            int(float_res - NumberUtils.divide_ten(float_res))
+        )))
+        return res if string[0] != '-' else -res
+    else:
+        raise AbnormalOperation("比较运算出现错误，在进行字符串转数值的时候，字符串的长度为 0，导致错误的发生。")
 
 
 def char_to_integer(c: str):

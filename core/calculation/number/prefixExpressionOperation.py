@@ -46,7 +46,7 @@ class PrefixExpressionOperation(NumberCalculation):
                 # 如果是运算符，就将上一个字符串缓冲转换成为数值，稍后用于栈的添加
                 number: float = StrUtils.string_to_double(temp)
                 # 清理所有缓冲区字符
-                temp = ""
+                temp = ''
                 if length == 0:
                     # 如果栈为空，就直接添加
                     double_stack.append(number)
@@ -86,7 +86,7 @@ class PrefixExpressionOperation(NumberCalculation):
             super().check(string)
 
     def format_str(self, string: str) -> str:
-        return string.replace(' ', '')
+        return re.subn("\\+-|-\\+", "-", string)[0].replace(' ', '')
 
 
 def get_instance(name: str):

@@ -1,58 +1,50 @@
-# mathematical-expression
+# 数学表达式
 
-- 切换至 [中文文档](https://github.com/BeardedManZhao/mathematical-expression/blob/main/README-Chinese.md)
+- Switch to [English Document](https://github.com/BeardedManZhao/mathematical-expression/blob/main/README.md)
 
-## introduce
+## 介绍
 
-This framework is an effective tool for mathematical formula analysis. It can analyze mathematical formulas including
-nested functions, including functions, and step accumulation of series. The return value is a numerical result object.
-At the same time, it can also be used for comparison operations. When comparing again, the return value is a Boolean
-result object.
+本框架是一种针对数学公式解析的有效工具，能够解析包含嵌套函数，包含函数，数列步长累加等数学公式，返回值是一个数值的结果对象，同时也可以进行比较运算的操作，再进行比较的时候，返回值是一个布尔值结果对象。
 
-- pip Get Command
+- pip获取命令
 
 ```xml
 
 ```
 
-## Framework
+## 框架架构
 
-### Calculation Manager
+### 计算管理者
 
-- Full class name：core.manager.CalculationManagement
-- introduce：
+- 类组件：core.manager.CalculationManagement
+- 介绍：
 
   管理者是一个为了同时使用单例与动态对象而设计的一个组件，管理者的存在可以使得每一个组件能够被名字所获取到，相同名字的组件，在内存中的存储地址也是一样的，避免了冗余组件的调用，同时针对需要使用到动态成员的组件，也可以通过一个新名字获取到一个新组件。
-- API Usage Example
+- API使用示例
 
-```python
-
-```
-
-- Running results
-
-  The last three lines are the comparison of memory data. The instantiated components are the same as the components in
-  the manager, but the components with different names are different.
+```java
 
 ```
 
+- 运行结果
+
+  最后三行就是内存数据的比较，实例化出来的组件与管理者中的组件在内存中是一样的，但是不同名称的组件是不同的。
+
 ```
 
-## Calculation component introduce
+```
 
-### Bracketed expression
+## 计算组件介绍
 
-- Full class name：core/calculation/number/prefixExpressionOperation.py
-- introduce
+### 无括号表达式
 
-  This component is designed for a mathematical expression without parentheses, but with operations such as addition,
-  subtraction, multiplication, division and remainder. This component can realize the function with priority
-  calculation, in which the prefix expression is used to parse and calculate, and the operand and operator are stored on
-  the stack together with the calculation priority comparison If the current priority is low, first operate the previous
-  operand and operator with the current operand to form a new value, and then put it on the stack.
-- API Usage Example
+- 类组件：core/calculation/number/prefixExpressionOperation.py
+- 介绍
 
-  The operators supported by this component are： a+b a-b a*b a/b a%b
+  针对一个没有括号，但是有加减乘除以及取余等运算操作的数学表达式而设计的组件，该组件可以实现带有优先级计算的功能，其中通过前缀表达式解析计算，将操作数与操作符一同存储到栈，在存储的同时配有计算优先级比较，如果当下的优先级较小，就先将上一个操作数与操作符与当前操作数进行运算，形成一个新的数值，然后再入栈。
+- API使用示例
+
+  该组件支持的运算符有： a+b a-b a*b a/b a%b
 
 ```python
 # This is a sample Python script.
@@ -73,10 +65,9 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
       "\n计算来源：" + calculation.get_calculation_source_name())
 ```
 
-- Running results
+- 运行结果
 
-  In the API call, the Running results of the function are printed. It can be seen that the returned value calculated by
-  the component is a result set object, in which a lot of information about the calculation results is stored.
+  在API调用中，对函数的运行结果进行了打印，可以看到，组件计算的返回值是一个结果集对象，在该对象中存储的就是很多有关计算结果相关的信息。
 
 ```
 计算层数：2
@@ -84,19 +75,15 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 计算来源：p
 ```
 
-### Nested parenthesis expression
+### 嵌套括号表达式
 
-- Full class name：core/calculation/number/bracketsCalculation2.py
-- introduce：
+- 类组件：core/calculation/number/bracketsCalculation2.py
+- 介绍：
 
-  Nested parenthesis expression parsing component, which can parse and calculate the results of mathematical expressions
-  with multiple parentheses, and parse and calculate the priority of nested parentheses. This component relies on "core.
-  calculation. number. PrefixExpressionOperation", and uses recursion to parse parentheses in this component, Then
-  provide the innermost expression to "core. calculation. number. PrefixExpressionOperation" for calculation.
+  嵌套括号表达式解析组件，能够针对带有多个括号的数学表达式进行解析与结果计算，针对嵌套括号进行优先级的解析与计算，该组件依赖于“core.calculation.number.PrefixExpressionOperation”，在该组件中采用递归进行括号的解析，然后将最内层面的表达式提供给“core.calculation.number.PrefixExpressionOperation”进行计算。
+- API使用示例
 
-- API Usage Example
-
-  The operators supported by this component are： a+b a-b a*b a/b a%b ( )
+  该组件支持的运算符有： a+b a-b a*b a/b a%b ( )
 
 ```python
 # This is a sample Python script.
@@ -117,11 +104,9 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
       "\n计算来源：" + calculation.get_calculation_source_name())
 ```
 
-- Running results
+- 运行结果
 
-  In the API call, the calculation result of the expression is printed. It can be seen that the return value of the
-  component calculation is a numerical result object, in which a lot of information about the calculation result is
-  stored.
+  在API调用中，对表达式的计算结果进行了打印，可以看到，组件计算的返回值是一个数值结果对象，在该对象中存储的就是很多有关计算结果相关的信息。
 
 ```
 计算层数：2
@@ -129,17 +114,15 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 计算来源：BracketsCalculation
 ```
 
-### Mathematical comparison expression
+### 数学比较表达式
 
-- Full class name：core/calculation/bool/booleanCalculation2.py
-- introduce
+- 类组件：core/calculation/bool/booleanCalculation2.py
+- 介绍
 
-  A component that uses the comparison operator to determine whether two parenthesis expressions are mutually valid. The
-  return value is a Boolean result object. This component can compare the size of two numeric values, or the
-  relationship between two expressions, depending on the component "core. calculation. bool. BooleanCalculation2"
-- API Usage Example
+  使用比较运算符两个括号表达式是否相互成立的一个组件，返回值是一个布尔类型的结果对象，该组件能够比较两个数值的大小等，也可以比较两个表达式之间的大小等关系，依赖于组件“core.calculation.bool.BooleanCalculation2”
+- API使用示例
 
-  The operators supported by this component are shown in the API
+  该组件支持的运算符如API中演示
 
 ```python
 # This is a sample Python script.
@@ -179,7 +162,7 @@ extracted(booleanCalculation2, s1 + " != " + s2)  # true
 extracted(booleanCalculation2, s1 + " <> " + s2)  # true
 ```
 
-- Running results
+- 运行结果
 
 ```
 计算层数：4	计算结果：False	计算来源：Bool
@@ -194,44 +177,36 @@ extracted(booleanCalculation2, s1 + " <> " + s2)  # true
 计算层数：4	计算结果：True	计算来源：Bool
 ```
 
-### Interval accumulation expression
+### 区间累加表达式
 
-- Full class name：core/calculation/number/cumulativeCalculation.py
+- 类组件：core/calculation/number/cumulativeCalculation.py
 
-- introduce
+- 介绍
 
-In mathematical expressions, there is often such a formula. The content of the formula is shown in the following
-
-figure. You can see the number sequence operations that need to be accumulated. Then, you can use the Full class name
-
-above to achieve the purpose you need.
+在数学表达式中，往往有这样的一种公式，公式内容如下图所示，可以看到需要进行累加的数列操作，那么在这种公式的需求下，您可以通过上面的类组件去达到您所需要的目的。
 
 ![img_1](https://user-images.githubusercontent.com/113756063/201575828-5b76af88-6040-430d-a54c-61faf5905594.png)
 
-- API Usage Example
+- API使用示例
 
-The syntax level is almost the same as that of other components. The calculation example of the mathematical
-
-expression written in the component is shown below. What is shown here is the calculation of an accumulative
-
-mathematical formula.
+语法层面于其他组件几乎一致，数学表达式的撰写于组件的计算示例就如下面所示，在这里展示的就是一个累加数学公式的计算。
 
 ```python
 # This is a sample Python script.
 from core.calculation.number import cumulativeCalculation
 
-# Get the calculation component of the accumulation formula
+# 获取到累加公式的计算组件
 cumulativeCalculation = cumulativeCalculation.get_instance("cumulative")
-# Construct a mathematical expression. Here, "n [1,10,1]" is similar to the accumulation symbol in mathematics. N
-# will increase continuously in this interval. Every increase will be brought into the formula for calculation
-# Wherein, the last 1 in [1,10,1] represents the increase step, which can realize the accumulation of different equal
-# difference values in the interval
+# 构造一个数学表达式。这里，“n[1,10,1]”类似于数学中的累加符号。N
+# 将在此间隔内持续增加。每增加一项都将纳入计算公式
+# 其中，[1,10,1]中的最后一个1表示递增步长，可以实现不同等式的累加
+# 间隔中的差值
 s = "n[1,10,1] 2 * (n + 1)"
-# Check mathematical expressions
+# 检查数学表达式
 cumulativeCalculation.check(s)
-# Calculation results
+# 计算结果
 calculation = cumulativeCalculation.calculation(s)
-# Print result value
+# 打印结果数值
 print(
     f"计算层数：{calculation.get_result_layers()}"
     f"\t计算结果：{calculation.get_result()}"
@@ -239,21 +214,21 @@ print(
 )
 ```
 
-- Running results
+- 运行结果
 
 ```
 计算层数：21	计算结果：130.0	计算来源：cumulative
 ```
 
-### Function operation expression
+### 函数运算表达式
 
-- Full class name:core/calculation/number/functionFormulaCalculation.py
+- 类组件：core/calculation/number/functionFormulaCalculation.py
 
-- introduce
+- 介绍
 
-针对一些函数的操作，在该框架中也有支持，可以使用上面的类进行这中需要函数的数学表达式的书写，需要注意的是，一切在表达式中使用到的函数都需要在“CalculationManagement”中进行逻辑注册，使得计算的时候可以访问到函数
+  针对一些函数的操作，在该框架中也有支持，可以使用上面的类进行这中需要函数的数学表达式的书写，需要注意的是，一切在表达式中使用到的函数都需要在“CalculationManagement”中进行逻辑注册，使得计算的时候可以访问到函数
 
-- API Usage Example
+- API使用示例
 
 ```python
 # This is a sample Python script.
@@ -268,15 +243,15 @@ class Function1(Function):
         return floats[0] * 2
 
 
-# Register the implemented function to the manager
+# 将实现的函数注册到管理者
 CalculationManagement.register_function(Function1("DoubleValue"))
-# Get the function calculation component
+# 获取到函数计算组件
 functionFormulaCalculation = functionFormulaCalculation.get_instance("zhao")
-# Build an expression
+# 构建一个表达式
 s = "2 * DoubleValue(2 + 3) + 1"
-# Check expression format
+# 检查表达式格式
 functionFormulaCalculation.check(s)
-# Start evaluating expression
+# 开始计算表达式
 result = functionFormulaCalculation.calculation(s)
 print(
     f"计算层数：{result.get_result_layers()}"
@@ -285,7 +260,7 @@ print(
 )
 ```
 
-- Running results
+- 运行结果
 
 ```
 INFO:root:Find and prepare the startup function: DoubleValue
@@ -295,4 +270,4 @@ INFO:root:Find and prepare the startup function: DoubleValue
 <hr>
 
 - date: 2022-11-14
-- 切换至 [中文文档](https://github.com/BeardedManZhao/mathematical-expression-py/blob/main/README-Chinese.md)
+- Switch to [English Document](https://github.com/BeardedManZhao/mathematical-expression/blob/main/README.md)

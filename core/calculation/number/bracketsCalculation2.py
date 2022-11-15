@@ -4,7 +4,6 @@
 # @Email : liming7887@qq.com
 # @File : bracketsCalculation2.py
 # @Project : mathematical-expression-py
-
 from core.calculation.number import prefixExpressionOperation
 from core.calculation.number.bracketsCalculation import BracketsCalculation
 from core.container import CalculationNumberResults
@@ -60,7 +59,7 @@ class BracketsCalculation2(BracketsCalculation):
         # 返回结果数据
         return CalculationNumberResults(
             recursion,
-            self.PREFIX_EXPRESSION_OPERATION.calculation(''.join(formula_builder), format_param),
+            self.PREFIX_EXPRESSION_OPERATION.calculation(''.join(formula_builder), format_param).result,
             self.get_name()
         )
 
@@ -79,7 +78,7 @@ def get_instance(name: str):
         if CalculationManagement.register(res, True):
             return res
         else:
-            return ExtractException("您提取的组件不属于PrefixExpressionOperation，请您更换一个组件名称吧！\n"
-                                    "The component you extracted does not belong to PrefixExpressionOperation, "
-                                    "please change a component name!\n "
-                                    "ERROR NAME => " + name)
+            raise ExtractException("您提取的组件不属于BracketsCalculation2，请您更换一个组件名称吧！\n"
+                                   "The component you extracted does not belong to BracketsCalculation2, "
+                                   "please change a component name!\n "
+                                   "ERROR NAME => " + name)
