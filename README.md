@@ -1,6 +1,6 @@
 # mathematical-expression
 
-- 切换至 [中文文档](https://github.com/BeardedManZhao/mathematical-expression/blob/main/README-Chinese.md)
+- 切换至 [中文文档](https://github.com/BeardedManZhao/mathematical-expression-py/blob/main/README-Chinese.md)
 
 ## introduce
 
