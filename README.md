@@ -251,8 +251,9 @@ print(
 
 - introduce
 
-针对一些函数的操作，在该框架中也有支持，可以使用上面的类进行这中需要函数的数学表达式的书写，需要注意的是，一切在表达式中使用到的函数都需要在“CalculationManagement”中进行逻辑注册，使得计算的时候可以访问到函数
-
+  The framework also supports the operation of some functions. You can use the above classes to write mathematical
+  expressions that require functions. It should be noted that all functions used in expressions need to be logically
+  registered in "Calculation Management" so that functions can be accessed during calculation
 - API Usage Example
 
 ```python
