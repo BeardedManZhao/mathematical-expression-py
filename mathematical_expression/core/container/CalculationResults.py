@@ -3,7 +3,7 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : CalculationResults.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 class CalculationResults:
     """
     计算结果接口，其中一般用来存储有关计算结果的数据，结果数据不一定是一个数值，具体的操作请查阅子类实现

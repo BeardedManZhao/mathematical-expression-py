@@ -3,13 +3,13 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : CalculationManagement.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 
 import logging
 
-from core.calculation import Calculation
-from core.calculation.function.Function import Function
-from exceptional.ExtractException import ExtractException
+from mathematical_expression.core.calculation import Calculation
+from mathematical_expression.core.calculation.function.Function import Function
+from mathematical_expression.exceptional.ExtractException import ExtractException
 
 PREFIX_EXPRESSION_OPERATION_NAME: str = "PrefixExpressionOperation"
 BRACKETS_CALCULATION_2_NAME: str = "BracketsCalculation2"

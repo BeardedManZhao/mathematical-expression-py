@@ -3,11 +3,11 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : StrUtils.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 from typing import Optional
 
-from exceptional.AbnormalOperation import AbnormalOperation
-from utils import NumberUtils
+from mathematical_expression.exceptional.AbnormalOperation import AbnormalOperation
+from mathematical_expression.utils import NumberUtils
 
 
 def string_to_double(string: str):

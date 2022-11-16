@@ -3,7 +3,7 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : ExtractException.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 class ExtractException(Exception):
     """
     提取计算组件时发生了错误会抛出该异常信息

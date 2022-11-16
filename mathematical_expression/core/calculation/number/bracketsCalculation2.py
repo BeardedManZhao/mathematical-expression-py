@@ -3,13 +3,12 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : bracketsCalculation2.py
-# @Project : mathematical-expression-py
-from core.calculation.number import prefixExpressionOperation
-from core.calculation.number.bracketsCalculation import BracketsCalculation
-from core.container import CalculationNumberResults
-from core.container.CalculationNumberResults import CalculationNumberResults
-from core.manager import CalculationManagement
-from exceptional.ExtractException import ExtractException
+# @Project : mathematical_expression-py
+from mathematical_expression.core.calculation.number import prefixExpressionOperation
+from mathematical_expression.core.calculation.number.bracketsCalculation import BracketsCalculation
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.exceptional.ExtractException import ExtractException
 
 
 class BracketsCalculation2(BracketsCalculation):

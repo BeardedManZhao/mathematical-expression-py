@@ -3,15 +3,15 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : prefixExpressionOperation.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 import re
 
-from core.calculation.number.numberCalculation import NumberCalculation
-from core.container.CalculationNumberResults import CalculationNumberResults
-from core.manager import CalculationManagement
-from exceptional.ExtractException import ExtractException
-from exceptional.WrongFormat import WrongFormat
-from utils import StrUtils, NumberUtils
+from mathematical_expression.core.calculation.number.numberCalculation import NumberCalculation
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.exceptional.ExtractException import ExtractException
+from mathematical_expression.exceptional.WrongFormat import WrongFormat
+from mathematical_expression.utils import StrUtils, NumberUtils
 
 
 class PrefixExpressionOperation(NumberCalculation):

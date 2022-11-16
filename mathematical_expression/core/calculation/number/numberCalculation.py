@@ -3,11 +3,11 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : numberCalculation.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 
-from core.calculation.Calculation import Calculation
-from exceptional.WrongFormat import WrongFormat
-from utils import NumberUtils
+from mathematical_expression.core.calculation.Calculation import Calculation
+from mathematical_expression.exceptional.WrongFormat import WrongFormat
+from mathematical_expression.utils import NumberUtils
 
 LEGAL_CHARACTERS: set = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '+', '-', '*', '/', '%', '(', ')', '.'}
 

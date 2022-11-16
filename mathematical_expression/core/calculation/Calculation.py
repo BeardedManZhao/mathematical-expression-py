@@ -1,4 +1,4 @@
-from core.manager import CalculationManagement
+from mathematical_expression.core.manager import CalculationManagement
 
 
 class Calculation:

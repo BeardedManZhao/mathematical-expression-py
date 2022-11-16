@@ -3,9 +3,9 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : bracketsCalculation.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 
-from core.calculation.number.numberCalculation import NumberCalculation
+from mathematical_expression.core.calculation.number.numberCalculation import NumberCalculation
 
 
 class BracketsCalculation(NumberCalculation):

@@ -3,8 +3,8 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : CalculationNumberResults.py
-# @Project : mathematical-expression-py
-from core.container.CalculationResults import CalculationResults
+# @Project : mathematical_expression-py
+from mathematical_expression.core.container.CalculationResults import CalculationResults
 
 
 class CalculationNumberResults(CalculationResults):

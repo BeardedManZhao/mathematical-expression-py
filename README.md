@@ -11,8 +11,8 @@ result object.
 
 - pip Get Command
 
-```xml
-
+```shell
+pip install mathematical_expression_py
 ```
 
 ## Framework
@@ -22,11 +22,29 @@ result object.
 - Full class name：core.manager.CalculationManagement
 - introduce：
 
-  管理者是一个为了同时使用单例与动态对象而设计的一个组件，管理者的存在可以使得每一个组件能够被名字所获取到，相同名字的组件，在内存中的存储地址也是一样的，避免了冗余组件的调用，同时针对需要使用到动态成员的组件，也可以通过一个新名字获取到一个新组件。
+  The manager is a component designed to use both singletons and dynamic objects. The existence of the manager enables
+  each component to be obtained by name. Components with the same name have the same storage address in memory, avoiding
+  the use of redundant components. At the same time, for components that need to use dynamic members, a new component
+  can also be obtained by a new name.
 - API Usage Example
 
 ```python
+from mathematical_expression.core.calculation.number import bracketsCalculation2, functionFormulaCalculation
+from mathematical_expression.core.manager import CalculationManagement
 
+# Create two parenthesis expression parsing components and a function expression parsing component
+br1 = bracketsCalculation2.get_instance("br1")
+br2 = bracketsCalculation2.get_instance("br2")
+fu1 = functionFormulaCalculation.get_instance("fu1")
+# Get the components with these three names from the manager
+m_br1 = CalculationManagement.get_calculation_by_name("br1")
+m_br2 = CalculationManagement.get_calculation_by_name("br2")
+m_fu1 = CalculationManagement.get_calculation_by_name("fu1")
+# Through get_ Instance and the manager extract the components obtained by these two methods. In the case of the same name, the two are one object
+print(br1 == m_br1)
+print(br2 == m_br2)
+print(fu1 == m_fu1)
+print(br1 == br2)
 ```
 
 - Running results
@@ -35,7 +53,20 @@ result object.
   the manager, but the components with different names are different.
 
 ```
-
+INFO:root:+============================== Welcome to [mathematical expression] ==============================+
+INFO:root:+ 	Start time 2022-11-16 16:29:07.660044
+INFO:root:+ 	Calculation component manager initialized successfully
+INFO:root:+ 	For more information, see: https://github.com/BeardedManZhao/mathematical-expression-py
+INFO:root:+--------------------------------------------------------------------------------------------------+
+INFO:root:A computing component is registered PrefixExpressionOperation
+INFO:root:A computing component is registered BracketsCalculation2
+INFO:root:A computing component is registered br1
+INFO:root:A computing component is registered br2
+INFO:root:A computing component is registered fu1
+True
+True
+True
+False
 ```
 
 ## Calculation component introduce
@@ -56,9 +87,9 @@ result object.
 
 ```python
 # This is a sample Python script.
-from core.calculation.number import prefixExpressionOperation
-from core.calculation.number.prefixExpressionOperation import PrefixExpressionOperation
-from core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.calculation.number import prefixExpressionOperation
+from mathematical_expression.core.calculation.number.prefixExpressionOperation import PrefixExpressionOperation
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
 
 # Gets the calculation component of a function that evaluates an expression without parentheses
 prefixExpressionOperation: PrefixExpressionOperation = prefixExpressionOperation.get_instance("p")
@@ -100,9 +131,9 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 
 ```python
 # This is a sample Python script.
-from core.calculation.number import bracketsCalculation2
-from core.calculation.number.bracketsCalculation2 import BracketsCalculation2
-from core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.calculation.number import bracketsCalculation2
+from mathematical_expression.core.calculation.number.bracketsCalculation2 import BracketsCalculation2
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
 
 # Get a calculation component that evaluates nested parenthesis expressions
 bracketsCalculation2: BracketsCalculation2 = bracketsCalculation2.get_instance("BracketsCalculation")
@@ -143,9 +174,9 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 
 ```python
 # This is a sample Python script.
-from core.calculation.bool import booleanCalculation2
-from core.calculation.bool.booleanCalculation2 import BooleanCalculation2
-from core.container.CalculationBooleanResults import CalculationBooleanResults
+from mathematical_expression.core.calculation.bool import booleanCalculation2
+from mathematical_expression.core.calculation.bool.booleanCalculation2 import BooleanCalculation2
+from mathematical_expression.core.container.CalculationBooleanResults import CalculationBooleanResults
 
 
 def extracted(boolean_calculation2: BooleanCalculation2, s: str):
@@ -202,7 +233,7 @@ extracted(booleanCalculation2, s1 + " <> " + s2)  # true
 
 In mathematical expressions, there is often such a formula. The content of the formula is shown in the following
 
-figure. You can see the number sequence operations that need to be accumulated. 
+figure. You can see the number sequence operations that need to be accumulated.
 
 Then, you can use the Full class name above to achieve the purpose you need.
 
@@ -218,7 +249,7 @@ mathematical formula.
 
 ```python
 # This is a sample Python script.
-from core.calculation.number import cumulativeCalculation
+from mathematical_expression.core.calculation.number import cumulativeCalculation
 
 # Get the calculation component of the accumulation formula
 cumulativeCalculation = cumulativeCalculation.get_instance("cumulative")
@@ -258,9 +289,9 @@ print(
 
 ```python
 # This is a sample Python script.
-from core.calculation.function.Function import Function
-from core.calculation.number import functionFormulaCalculation
-from core.manager import CalculationManagement
+from mathematical_expression.core.calculation.function.Function import Function
+from mathematical_expression.core.calculation.number import functionFormulaCalculation
+from mathematical_expression.core.manager import CalculationManagement
 
 
 # 实现一个函数

@@ -3,7 +3,7 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : Function.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 class Function:
     name: str
 

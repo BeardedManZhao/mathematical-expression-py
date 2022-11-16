@@ -3,7 +3,7 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : WrongFormat.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 class WrongFormat(Exception):
     """
     格式错误，在本框架中进行格式检查的时候，出现了格式类的错误的时候，将会抛出该异常

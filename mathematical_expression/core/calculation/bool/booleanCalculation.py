@@ -3,14 +3,14 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : booleanCalculation.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 import re
 from typing import List, Union, Any
 
-from core.calculation.Calculation import Calculation
-from core.calculation.number import bracketsCalculation2
-from core.manager import CalculationManagement
-from exceptional.WrongFormat import WrongFormat
+from mathematical_expression.core.calculation.Calculation import Calculation
+from mathematical_expression.core.calculation.number import bracketsCalculation2
+from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.exceptional.WrongFormat import WrongFormat
 
 
 class BooleanCalculation(Calculation):

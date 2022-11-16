@@ -3,9 +3,8 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : NumberUtils.py
-# @Project : mathematical-expression-py
-from exceptional import AbnormalOperation
-from exceptional.AbnormalOperation import AbnormalOperation
+# @Project : mathematical_expression-py
+from mathematical_expression.exceptional.AbnormalOperation import AbnormalOperation
 
 NumericalDictionary: dict = {
     '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9

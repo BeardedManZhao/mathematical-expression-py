@@ -3,13 +3,13 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : functionFormulaCalculation.py
-# @Project : mathematical-expression-py
-from core.calculation.number import bracketsCalculation2
-from core.calculation.number.numberCalculation import NumberCalculation
-from core.manager import CalculationManagement
-from exceptional.ExtractException import ExtractException
-from exceptional.WrongFormat import WrongFormat
-from utils import NumberUtils
+# @Project : mathematical_expression-py
+from mathematical_expression.core.calculation.number import bracketsCalculation2
+from mathematical_expression.core.calculation.number.numberCalculation import NumberCalculation
+from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.exceptional.ExtractException import ExtractException
+from mathematical_expression.exceptional.WrongFormat import WrongFormat
+from mathematical_expression.utils import NumberUtils
 
 
 class FunctionFormulaCalculation(NumberCalculation):

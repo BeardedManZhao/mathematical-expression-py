@@ -8,8 +8,8 @@
 
 - pip获取命令
 
-```xml
-
+```shell
+pip install mathematical_expression_py
 ```
 
 ## 框架架构
@@ -22,8 +22,23 @@
   管理者是一个为了同时使用单例与动态对象而设计的一个组件，管理者的存在可以使得每一个组件能够被名字所获取到，相同名字的组件，在内存中的存储地址也是一样的，避免了冗余组件的调用，同时针对需要使用到动态成员的组件，也可以通过一个新名字获取到一个新组件。
 - API使用示例
 
-```java
+```python
+from mathematical_expression.core.calculation.number import bracketsCalculation2, functionFormulaCalculation
+from mathematical_expression.core.manager import CalculationManagement
 
+# 创建两个括号表达式解析组件与一个函数表达式解析组件
+br1 = bracketsCalculation2.get_instance("br1")
+br2 = bracketsCalculation2.get_instance("br2")
+fu1 = functionFormulaCalculation.get_instance("fu1")
+# 从管理者中获取到这三个名字的组件
+m_br1 = CalculationManagement.get_calculation_by_name("br1")
+m_br2 = CalculationManagement.get_calculation_by_name("br2")
+m_fu1 = CalculationManagement.get_calculation_by_name("fu1")
+# 通过 get_instance 与 管理者提取 这两种方式获取到的组件，在相同名字的情况下，两者是一个对象
+print(br1 == m_br1)
+print(br2 == m_br2)
+print(fu1 == m_fu1)
+print(br1 == br2)
 ```
 
 - 运行结果
@@ -31,7 +46,20 @@
   最后三行就是内存数据的比较，实例化出来的组件与管理者中的组件在内存中是一样的，但是不同名称的组件是不同的。
 
 ```
-
+INFO:root:+============================== Welcome to [mathematical expression] ==============================+
+INFO:root:+ 	Start time 2022-11-16 16:29:07.660044
+INFO:root:+ 	Calculation component manager initialized successfully
+INFO:root:+ 	For more information, see: https://github.com/BeardedManZhao/mathematical-expression-py
+INFO:root:+--------------------------------------------------------------------------------------------------+
+INFO:root:A computing component is registered PrefixExpressionOperation
+INFO:root:A computing component is registered BracketsCalculation2
+INFO:root:A computing component is registered br1
+INFO:root:A computing component is registered br2
+INFO:root:A computing component is registered fu1
+True
+True
+True
+False
 ```
 
 ## 计算组件介绍
@@ -48,9 +76,9 @@
 
 ```python
 # This is a sample Python script.
-from core.calculation.number import prefixExpressionOperation
-from core.calculation.number.prefixExpressionOperation import PrefixExpressionOperation
-from core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.calculation.number import prefixExpressionOperation
+from mathematical_expression.core.calculation.number.prefixExpressionOperation import PrefixExpressionOperation
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
 
 # Gets the calculation component of a function that evaluates an expression without parentheses
 prefixExpressionOperation: PrefixExpressionOperation = prefixExpressionOperation.get_instance("p")
@@ -80,16 +108,16 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 - 类组件：core/calculation/number/bracketsCalculation2.py
 - 介绍：
 
-  嵌套括号表达式解析组件，能够针对带有多个括号的数学表达式进行解析与结果计算，针对嵌套括号进行优先级的解析与计算，该组件依赖于“core.calculation.number.PrefixExpressionOperation”，在该组件中采用递归进行括号的解析，然后将最内层面的表达式提供给“core.calculation.number.PrefixExpressionOperation”进行计算。
+  嵌套括号表达式解析组件，能够针对带有多个括号的数学表达式进行解析与结果计算，针对嵌套括号进行优先级的解析与计算，该组件依赖于“mathematical_expression.core.calculation.number.PrefixExpressionOperation”，在该组件中采用递归进行括号的解析，然后将最内层面的表达式提供给“mathematical_expression.core.calculation.number.PrefixExpressionOperation”进行计算。
 - API使用示例
 
   该组件支持的运算符有： a+b a-b a*b a/b a%b ( )
 
 ```python
 # This is a sample Python script.
-from core.calculation.number import bracketsCalculation2
-from core.calculation.number.bracketsCalculation2 import BracketsCalculation2
-from core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.calculation.number import bracketsCalculation2
+from mathematical_expression.core.calculation.number.bracketsCalculation2 import BracketsCalculation2
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
 
 # Get a calculation component that evaluates nested parenthesis expressions
 bracketsCalculation2: BracketsCalculation2 = bracketsCalculation2.get_instance("BracketsCalculation")
@@ -119,16 +147,16 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 - 类组件：core/calculation/bool/booleanCalculation2.py
 - 介绍
 
-  使用比较运算符两个括号表达式是否相互成立的一个组件，返回值是一个布尔类型的结果对象，该组件能够比较两个数值的大小等，也可以比较两个表达式之间的大小等关系，依赖于组件“core.calculation.bool.BooleanCalculation2”
+  使用比较运算符两个括号表达式是否相互成立的一个组件，返回值是一个布尔类型的结果对象，该组件能够比较两个数值的大小等，也可以比较两个表达式之间的大小等关系，依赖于组件“mathematical_expression.core.calculation.bool.BooleanCalculation2”
 - API使用示例
 
   该组件支持的运算符如API中演示
 
 ```python
 # This is a sample Python script.
-from core.calculation.bool import booleanCalculation2
-from core.calculation.bool.booleanCalculation2 import BooleanCalculation2
-from core.container.CalculationBooleanResults import CalculationBooleanResults
+from mathematical_expression.core.calculation.bool import booleanCalculation2
+from mathematical_expression.core.calculation.bool.booleanCalculation2 import BooleanCalculation2
+from mathematical_expression.core.container.CalculationBooleanResults import CalculationBooleanResults
 
 
 def extracted(boolean_calculation2: BooleanCalculation2, s: str):
@@ -193,7 +221,7 @@ extracted(booleanCalculation2, s1 + " <> " + s2)  # true
 
 ```python
 # This is a sample Python script.
-from core.calculation.number import cumulativeCalculation
+from mathematical_expression.core.calculation.number import cumulativeCalculation
 
 # 获取到累加公式的计算组件
 cumulativeCalculation = cumulativeCalculation.get_instance("cumulative")
@@ -232,9 +260,9 @@ print(
 
 ```python
 # This is a sample Python script.
-from core.calculation.function.Function import Function
-from core.calculation.number import functionFormulaCalculation
-from core.manager import CalculationManagement
+from mathematical_expression.core.calculation.function.Function import Function
+from mathematical_expression.core.calculation.number import functionFormulaCalculation
+from mathematical_expression.core.manager import CalculationManagement
 
 
 # 实现一个函数

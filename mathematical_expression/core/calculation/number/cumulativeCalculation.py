@@ -3,14 +3,14 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : cumulativeCalculation.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 import re
 
-from core.calculation.number.bracketsCalculation2 import BracketsCalculation2
-from core.manager import CalculationManagement
-from exceptional.ExtractException import ExtractException
-from exceptional.WrongFormat import WrongFormat
-from utils import StrUtils
+from mathematical_expression.core.calculation.number.bracketsCalculation2 import BracketsCalculation2
+from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.exceptional.ExtractException import ExtractException
+from mathematical_expression.exceptional.WrongFormat import WrongFormat
+from mathematical_expression.utils import StrUtils
 
 
 class CumulativeCalculation(BracketsCalculation2):

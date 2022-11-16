@@ -3,7 +3,7 @@
 # @Author : zhao
 # @Email : liming7887@qq.com
 # @File : AbnormalOperation.py
-# @Project : mathematical-expression-py
+# @Project : mathematical_expression-py
 
 class AbnormalOperation(Exception):
     """
