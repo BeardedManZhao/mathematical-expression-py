@@ -7,7 +7,7 @@
 from mathematical_expression.core.calculation.number import prefixExpressionOperation
 from mathematical_expression.core.calculation.number.bracketsCalculation import BracketsCalculation
 from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
-from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.core.manager import CalculationManagement, ConstantRegion
 from mathematical_expression.exceptional.ExtractException import ExtractException
 
 
@@ -37,14 +37,14 @@ class BracketsCalculation2(BracketsCalculation):
         # 迭代每一个字符
         for i in range(0, len(formula)):
             c = formula[i]
-            if c == '(':
+            if c == ConstantRegion.LEFT_BRACKET:
                 # 如果是左括号就判断是否需要进行索引的记录
                 if not set_ok:
                     # 如果状态为False，代表现在还没有记录括号索引，在这里修改set_ok的状态，同时为start赋予值
                     set_ok = True
                     start = i
                 count += 1
-            elif c == ')':
+            elif c == ConstantRegion.RIGHT_BRACKET:
                 count -= 1
                 if count == 0:
                     set_ok = False
@@ -52,7 +52,7 @@ class BracketsCalculation2(BracketsCalculation):
                     res: CalculationNumberResults = self.calculation(formula[start + 1: i], format_param)
                     formula_builder.append(str(res))
                     recursion += res.result_layers
-            elif (not set_ok) and c != ' ':
+            elif (not set_ok) and c != ConstantRegion.EMPTY:
                 # 如果不是括号就将数据提供给缓冲区
                 formula_builder.append(c)
         # 返回结果数据

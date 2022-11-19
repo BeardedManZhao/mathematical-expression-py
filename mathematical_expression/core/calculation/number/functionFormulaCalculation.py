@@ -6,7 +6,7 @@
 # @Project : mathematical_expression-py
 from mathematical_expression.core.calculation.number import bracketsCalculation2
 from mathematical_expression.core.calculation.number.numberCalculation import NumberCalculation
-from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.core.manager import CalculationManagement, ConstantRegion
 from mathematical_expression.exceptional.ExtractException import ExtractException
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 from mathematical_expression.utils import NumberUtils
@@ -32,28 +32,29 @@ class FunctionFormulaCalculation(NumberCalculation):
         for i in range(0, len(formula)):
             a_char: str = formula[i]
             ascii_number = ord(a_char)
-            if (65 <= ascii_number <= 90) or (97 <= ascii_number <= 122):
+            if (ConstantRegion.BA_ASCII <= ascii_number <= ConstantRegion.BZ_ASCII) or \
+                    (ConstantRegion.SA_ASCII <= ascii_number <= ConstantRegion.SZ_ASCII):
                 # 如果是字母，就将当前的索引作为函数名，首先先判断是否为起始索引
                 if not set_ok:
                     start = i
                     set_ok = True
                 name += a_char
-            elif set_ok and a_char == '(':
+            elif set_ok and a_char == ConstantRegion.LEFT_BRACKET:
                 # 如果是函数的左括号，就为括号计数器 加1
                 count += 1
-            elif set_ok and a_char == ')' and count == 1:
+            elif set_ok and a_char == ConstantRegion.RIGHT_BRACKET and count == 1:
                 count -= 1
                 # 如果当前区域是函数内，同时当前是一个右括号，而且该括号是与起始括号相对应的，代表函数结束
                 set_ok = False
                 # 获取到函数对象
                 function = CalculationManagement.get_function_by_name(name)
-                CalculationManagement.logging.info("Find and prepare the startup function: " + name)
+                CalculationManagement.logging.info(ConstantRegion.LOG_INFO_FIND_FUNCTION + name)
                 # 使用括号计算组件计算出函数的实参，并将计算结果传递给函数计算，并将结果追加到缓冲区
                 string_builder.append(
                     str(function.run(
                         self.BRACKETS_CALCULATION_2.calculation(formula[start + len(name) + 1: i]).result)))
                 name = ''
-            elif not set_ok and a_char != ' ':
+            elif not set_ok and a_char != ConstantRegion.EMPTY:
                 string_builder.append(a_char)
         # 计算结果
         return self.BRACKETS_CALCULATION_2.calculation(''.join(string_builder), format_param)
@@ -71,19 +72,20 @@ class FunctionFormulaCalculation(NumberCalculation):
         for i in range(0, len(string)):
             a_char: str = string[i]
             ascii_number = ord(a_char)
-            if (65 <= ascii_number <= 90) or (97 <= ascii_number <= 122):
+            if (ConstantRegion.BA_ASCII <= ascii_number <= ConstantRegion.BZ_ASCII) or \
+                    (ConstantRegion.SA_ASCII <= ascii_number <= ConstantRegion.SZ_ASCII):
                 # 如果是字母，就将当前的索引作为起始索引
                 if not set_ok:
                     starts.append(i)
                     set_ok = True
                 starts.append(starts.pop() + 1)
-            elif set_ok and a_char == '(':
+            elif set_ok and a_char == ConstantRegion.LEFT_BRACKET:
                 count += 1
-            elif set_ok and a_char == ')' and count == 1:
+            elif set_ok and a_char == ConstantRegion.RIGHT_BRACKET and count == 1:
                 count -= 1
                 set_ok = False
                 ends.append(i)
-            elif not set_ok and a_char != ' ':
+            elif not set_ok and a_char != ConstantRegion.EMPTY:
                 data.append(a_char)
         # 判断起始索引数量与终止索引数量是相同，如果不同代表有错误
         length = len(starts)
@@ -93,14 +95,15 @@ class FunctionFormulaCalculation(NumberCalculation):
             for start in starts:
                 super().check(string[start + 2: ends.pop()])
                 data.append('0')
-            super().check(''.join(data))
+            super().check(ConstantRegion.NO_CHAR.join(data))
         else:
             raise WrongFormat("函数可能缺少起始或结束括号，没有正常的闭环。\nThe function may lack a start or end bracket, and there is no "
                               "normal closed loop\nMissing function bracket logarithm: " +
                               NumberUtils.absolute_value(length - length1))
 
     def format_str(self, string: str) -> str:
-        return string.strip('+-*/%').replace(' ', '')
+        return string.strip(ConstantRegion.ARITHMETIC_OPERATOR_STRING) \
+            .replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)
 
 
 def get_instance(name: str):

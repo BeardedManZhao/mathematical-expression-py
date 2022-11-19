@@ -8,7 +8,7 @@ import re
 
 from mathematical_expression.core.calculation.number.numberCalculation import NumberCalculation
 from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
-from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.core.manager import CalculationManagement, ConstantRegion
 from mathematical_expression.exceptional.ExtractException import ExtractException
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 from mathematical_expression.utils import StrUtils, NumberUtils
@@ -38,15 +38,17 @@ class PrefixExpressionOperation(NumberCalculation):
         # 创建操作符栈
         str_stack: list = []
         # 创建临时字符串容器，用于存储每一个表达式的值
-        temp: str = ''
+        temp: str = ConstantRegion.NO_CHAR
         # 迭代表达式中的每一个字符
         for c in new_formula:
-            if c == '+' or c == '-' or c == '*' or c == '/' or c == '%':
+            if c == ConstantRegion.PLUS_SIGN or c == ConstantRegion.MINUS_SIGN or \
+                    c == ConstantRegion.MULTIPLICATION_SIGN or c == ConstantRegion.DIVISION_SIGN or \
+                    c == ConstantRegion.REMAINDER_SIGN:
                 length: int = len(str_stack)
                 # 如果是运算符，就将上一个字符串缓冲转换成为数值，稍后用于栈的添加
                 number: float = StrUtils.string_to_double(temp)
                 # 清理所有缓冲区字符
-                temp = ''
+                temp = ConstantRegion.NO_CHAR
                 if length == 0:
                     # 如果栈为空，就直接添加
                     double_stack.append(number)
@@ -62,7 +64,7 @@ class PrefixExpressionOperation(NumberCalculation):
                         # 如果当前运算符优先级大或相等，那么就直接将当前的值与运算符添加
                         double_stack.append(number)
                         str_stack.append(c)
-            elif c == '.' or (c in NumberUtils.NumericalDictionary.keys()):
+            elif c == ConstantRegion.DECIMAL_POINT or (c in NumberUtils.NumericalDictionary.keys()):
                 # 如果当前是操作数，就直接将当前字符添加到缓冲区
                 temp += c
         double_stack.append(StrUtils.string_to_double(temp))
@@ -78,7 +80,7 @@ class PrefixExpressionOperation(NumberCalculation):
         return CalculationNumberResults(i, res, self.get_name())
 
     def check(self, string: str):
-        if re.match(".*[()].*", string):
+        if re.match(ConstantRegion.REGULAR_CONTAINS_BRACKET, string):
             raise WrongFormat(
                 "本组件只能解析不包含括号的表达式！！！\nThis component can only parse expressions without parentheses!!!\nWrong format "
                 "=> " + string)
@@ -86,7 +88,8 @@ class PrefixExpressionOperation(NumberCalculation):
             super().check(string)
 
     def format_str(self, string: str) -> str:
-        return re.subn("\\+-|-\\+", "-", string)[0].replace(' ', '')
+        return re.subn(ConstantRegion.REGULAR_CONTAINS_ADDSUB, ConstantRegion.MINUS_SIGN, string)[0] \
+            .replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)
 
 
 def get_instance(name: str):

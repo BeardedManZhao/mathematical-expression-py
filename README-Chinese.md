@@ -16,7 +16,7 @@ pip install mathematical_expression_py
 
 ### 计算管理者
 
-- 类组件：core.manager.CalculationManagement
+- 类组件：mathematical_expression/core/manager/CalculationManagement.py
 - 介绍：
 
   管理者是一个为了同时使用单例与动态对象而设计的一个组件，管理者的存在可以使得每一个组件能够被名字所获取到，相同名字的组件，在内存中的存储地址也是一样的，避免了冗余组件的调用，同时针对需要使用到动态成员的组件，也可以通过一个新名字获取到一个新组件。
@@ -60,6 +60,53 @@ True
 True
 True
 False
+```
+
+### 运算符重定义
+
+- 类组件：mathematical_expression/core/manager/ConstantRegion.py
+- 介绍
+
+  在框架中有一个常量池，其中存储着需要经常复用的数据，这些数据在python版本的框架中是可以进行修改的，通常修改这些数据可以增加更大的灵活性，但是需要注意的是，此处的修改操作也可能引发一些奇怪的异常，所以需要根据情况决定是否要使用重定义技术。
+
+  接下来请查阅重定义的使用示例
+
+```python
+# This is a sample Python script.
+from mathematical_expression.core.calculation.number import bracketsCalculation2
+from mathematical_expression.core.calculation.number.bracketsCalculation2 import BracketsCalculation2
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.manager import ConstantRegion
+
+# 重定义加号的符号
+ConstantRegion.PLUS_SIGN = '$'
+# 重定义乘号的符号
+ConstantRegion.MULTIPLICATION_SIGN = '@'
+# 刷新常量区配置
+ConstantRegion.re_fresh()
+
+# Get a calculation component that evaluates nested parenthesis expressions
+bracketsCalculation2: BracketsCalculation2 = bracketsCalculation2.get_instance("BracketsCalculation")
+# Create an expression
+# s: str = "1 + 2 + 4 * (10 - 3)" TODO 这里的加号与乘号被重定义了，可以使用新的字符替代
+s: str = "1 $ 2 $ 4 @ (10 - 3)"
+# Check the expression for errors
+bracketsCalculation2.check(s)
+# Start calculating results
+calculation: CalculationNumberResults = bracketsCalculation2.calculation(s)
+# Print result value
+print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果：" + str(calculation.get_result()) +
+      "\n计算来源：" + calculation.get_calculation_source_name())
+```
+
+- 运行结果
+
+  可以看到这里的运行很顺利，在公式中，对符号进行了重定义
+
+```
+计算层数：2
+计算结果：31.0
+计算来源：BracketsCalculation
 ```
 
 ## 计算组件介绍
@@ -297,5 +344,8 @@ INFO:root:Find and prepare the startup function: DoubleValue
 
 <hr>
 
+更多信息
+
 - date: 2022-11-14
 - Switch to [English Document](https://github.com/BeardedManZhao/mathematical-expression/blob/main/README.md)
+- [mathematical-expression-Java](https://github.com/BeardedManZhao/mathematical-expression)

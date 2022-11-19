@@ -19,7 +19,7 @@ pip install mathematical_expression_py
 
 ### Calculation Manager
 
-- Full class name：core.manager.CalculationManagement
+- Full class name：mathematical_expression/core/manager/CalculationManagement.py
 - introduce：
 
   The manager is a component designed to use both singletons and dynamic objects. The existence of the manager enables
@@ -69,11 +69,63 @@ True
 False
 ```
 
+### Operational rule redefinition
+
+- Full class name：mathematical_expression/core/manager/ConstantRegion.py
+- introduce：
+
+  There is a constant pool in the framework that stores data that needs to be reused frequently. This data can be
+  modified in the python version of the framework. Modifying this data can often add more flexibility, but it is
+  important to note that the modification here may also cause some strange exceptions, so it is up to you to decide if
+  you want to use redefinition technology.
+
+  Next, see an example of using redefinition
+
+```python
+# This is a sample Python script.
+from mathematical_expression.core.calculation.number import bracketsCalculation2
+from mathematical_expression.core.calculation.number.bracketsCalculation2 import BracketsCalculation2
+from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
+from mathematical_expression.core.manager import ConstantRegion
+
+# Redefine the sign of the plus sign
+ConstantRegion.PLUS_SIGN = '$'
+# Redefine the sign of the multiplication sign
+ConstantRegion.MULTIPLICATION_SIGN = '@'
+# Refresh constant area configuration
+ConstantRegion.re_fresh()
+
+# Get a calculation component that evaluates nested parenthesis expressions
+bracketsCalculation2: BracketsCalculation2 = bracketsCalculation2.get_instance("BracketsCalculation")
+# Create an expression
+# s: str = "1 + 2 + 4 * (10 - 3)" 
+# TODO The plus sign and multiplication sign here are redefined and can be replaced by new characters
+s: str = "1 $ 2 $ 4 @ (10 - 3)"
+# Check the expression for errors
+bracketsCalculation2.check(s)
+# Start calculating results
+calculation: CalculationNumberResults = bracketsCalculation2.calculation(s)
+# Print result value
+print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果：" + str(calculation.get_result()) +
+      "\n计算来源：" + calculation.get_calculation_source_name())
+
+```
+
+- Running results
+
+  It can be seen that the operation here is smooth. In the formula, the symbol is redefined
+
+```
+计算层数：2
+计算结果：31.0
+计算来源：BracketsCalculation
+```
+
 ## Calculation component introduce
 
 ### Bracketed expression
 
-- Full class name：core/calculation/number/prefixExpressionOperation.py
+- Full class name：mathematical_expression/core/calculation/number/prefixExpressionOperation.py
 - introduce
 
   This component is designed for a mathematical expression without parentheses, but with operations such as addition,
@@ -325,6 +377,8 @@ INFO:root:Find and prepare the startup function: DoubleValue
 ```
 
 <hr>
+
+More information
 
 - date: 2022-11-14
 - 切换至 [中文文档](https://github.com/BeardedManZhao/mathematical-expression-py/blob/main/README-Chinese.md)

@@ -7,7 +7,7 @@
 import re
 
 from mathematical_expression.core.calculation.number.bracketsCalculation2 import BracketsCalculation2
-from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.core.manager import CalculationManagement, ConstantRegion
 from mathematical_expression.exceptional.ExtractException import ExtractException
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 from mathematical_expression.utils import StrUtils
@@ -36,9 +36,12 @@ class CumulativeCalculation(BracketsCalculation2):
         new_formula: str = ''
         number: int = start
         while number <= end:
-            new_formula += ('(' + format1.replace(f, str(number)) + ')+')
+            new_formula.join(
+                [ConstantRegion.LEFT_BRACKET, format1.replace(f, str(number)),
+                 ConstantRegion.RIGHT_BRACKET, ConstantRegion.PLUS_SIGN]
+            )
             number += equal_difference
-        return super().format_str(new_formula.strip("+-*/%"))
+        return super().format_str(new_formula.strip(ConstantRegion.ARITHMETIC_OPERATOR_STRING))
 
     def calculation(self, formula: str, format_param: bool = True):
         return super().calculation(self.format_str(formula) if format_param else formula, False)

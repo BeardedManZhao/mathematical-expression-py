@@ -3,6 +3,8 @@ import logging
 import sys
 from datetime import datetime
 
+from mathematical_expression.core.manager import ConstantRegion
+
 now = datetime.now()
 # if not os.path.exists('./logs'):
 #     os.mkdir('./logs')

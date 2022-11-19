@@ -9,7 +9,7 @@ import re
 from mathematical_expression.core.calculation.bool.booleanCalculation import BooleanCalculation
 from mathematical_expression.core.container.CalculationBooleanResults import CalculationBooleanResults
 from mathematical_expression.core.container.CalculationNumberResults import CalculationNumberResults
-from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.core.manager import CalculationManagement, ConstantRegion
 from mathematical_expression.exceptional.ExtractException import ExtractException
 from mathematical_expression.utils import NumberUtils
 
@@ -31,11 +31,11 @@ class BooleanCalculation2(BooleanCalculation):
         """
         new_formula: str
         if format_param:
-            new_formula = ''.join(self.format_str(formula))
+            new_formula = ConstantRegion.NO_CHAR.join(self.format_str(formula))
         else:
             new_formula = formula
         # 将左右数据获取到
-        split = re.split("<=|>=|!=|<>|==|[<=>]", new_formula)
+        split = re.split(ConstantRegion.REGULAR_COMPARISON_OPERATOR, new_formula)
         s1 = split[0]
         s2 = split[1]
         # 进行比较运算符的提取，这里是先获取到索引

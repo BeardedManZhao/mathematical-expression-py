@@ -6,10 +6,9 @@
 # @Project : mathematical_expression-py
 
 from mathematical_expression.core.calculation.Calculation import Calculation
+from mathematical_expression.core.manager import ConstantRegion
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 from mathematical_expression.utils import NumberUtils
-
-LEGAL_CHARACTERS: set = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '+', '-', '*', '/', '%', '(', ')', '.'}
 
 
 class NumberCalculation(Calculation):
@@ -35,15 +34,15 @@ class NumberCalculation(Calculation):
         # 右括号出现数量
         right: int = 0
         for c in string:
-            if c == '(':
+            if c == ConstantRegion.LEFT_BRACKET:
                 left += 1
-            elif c == ')':
+            elif c == ConstantRegion.RIGHT_BRACKET:
                 right += 1
-            elif c not in LEGAL_CHARACTERS:
-                return WindowsError("您的格式不正确，出现了数学表达式中不应该存在的字符。\n"
-                                    "Your format is incorrect. There are characters that should not exist in the "
-                                    "mathematical expression.\n"
-                                    "Wrong character [" + c + "] from [" + string + "]")
+            elif c not in ConstantRegion.LEGAL_CHARACTERS:
+                raise WrongFormat("您的格式不正确，出现了数学表达式中不应该存在的字符。\n"
+                                  "Your format is incorrect. There are characters that should not exist in the "
+                                  "mathematical expression.\n"
+                                  "Wrong character [" + c + "] from [" + string + "]")
         if left != right:
             abs_value = NumberUtils.absolute_value(left - right)
             return WrongFormat(

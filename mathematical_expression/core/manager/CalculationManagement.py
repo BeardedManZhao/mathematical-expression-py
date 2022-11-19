@@ -9,6 +9,7 @@ import logging
 
 from mathematical_expression.core.calculation import Calculation
 from mathematical_expression.core.calculation.function.Function import Function
+from mathematical_expression.core.manager import ConstantRegion
 from mathematical_expression.exceptional.ExtractException import ExtractException
 
 PREFIX_EXPRESSION_OPERATION_NAME: str = "PrefixExpressionOperation"
@@ -23,6 +24,7 @@ def get_calculation_by_name(calculation_name: str) -> Calculation:
     :param calculation_name: 目标组件的名字
     :return: 目标组件的对象
     """
+    logging.info(ConstantRegion.LOG_INFO_GET_COMPONENT + calculation_name)
     return STRING_CALCULATION_HASH_MAP.get(calculation_name)
 
 
@@ -32,6 +34,7 @@ def get_function_by_name(function_name: str) -> Function:
     :param function_name: 目标函数的名字
     :return: 目标函数的对象
     """
+    logging.info(ConstantRegion.LOG_INFO_GET_FUNCTION + function_name)
     function = STRING_FUNCTION_HASH_MAP.get(function_name)
     if function is not None:
         return function
@@ -58,7 +61,7 @@ def register(calculation: Calculation, judge) -> bool:
                                                                                         "registered")
         return False
     else:
-        logging.info("A computing component is registered " + name)
+        logging.info(ConstantRegion.LOG_INFO_REGISTER_COMPONENT + name)
         STRING_CALCULATION_HASH_MAP[name] = calculation
         return True
 
@@ -75,7 +78,7 @@ def register_function(function: Function) -> bool:
                                                                                          "name conflicts")
         return False
     else:
-        logging.info("A function named [" + name + "] is registered in the manager")
+        logging.info(ConstantRegion.LOG_INFO_register_FUNCTION + name)
         STRING_FUNCTION_HASH_MAP[name] = function
         return True
 
@@ -86,7 +89,7 @@ def unregister_function(function_name: str):
     :param function_name: 需要注销的函数的名称
     :return: 注销成功的函数对象
     """
-    logging.info("Prepare the logoff of a function. Function name:" + function_name)
+    logging.info(ConstantRegion.LOG_INFO_UNREGISTER_FUNCTION + function_name)
     return STRING_FUNCTION_HASH_MAP.pop(function_name)
 
 
@@ -96,5 +99,5 @@ def unregister(calculation_name: str):
     :param calculation_name: 需要注销的组件名称
     :return: 注销成功的组件
     """
-    logging.info("Prepare the logoff of a function. Function name:" + calculation_name)
+    logging.info(ConstantRegion.LOG_INFO_UNREGISTER_COMPONENT + calculation_name)
     return STRING_CALCULATION_HASH_MAP.pop(calculation_name)

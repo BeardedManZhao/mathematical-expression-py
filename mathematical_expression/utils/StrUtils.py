@@ -6,6 +6,7 @@
 # @Project : mathematical_expression-py
 from typing import Optional
 
+from mathematical_expression.core.manager import ConstantRegion
 from mathematical_expression.exceptional.AbnormalOperation import AbnormalOperation
 from mathematical_expression.utils import NumberUtils
 
@@ -21,12 +22,12 @@ def string_to_double(string: str):
         float_res: int = 0
         is_int: bool = True
         for c in string:
-            if c != '.' and c != ' ':
+            if c != ConstantRegion.DECIMAL_POINT and c != ConstantRegion.EMPTY:
                 if is_int:
                     int_res = NumberUtils.tenfold(int_res) + char_to_integer(c)
                 else:
                     float_res = NumberUtils.tenfold(float_res) + char_to_integer(c)
-            elif c == '.':
+            elif c == ConstantRegion.DECIMAL_POINT:
                 is_int = False
         res = int_res + float_res / NumberUtils.power_of_ten(10, int(0 if float_res == 0 else NumberUtils.divide_ten(
             int(float_res - NumberUtils.divide_ten(float_res))

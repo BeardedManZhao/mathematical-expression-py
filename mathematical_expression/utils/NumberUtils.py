@@ -4,6 +4,7 @@
 # @Email : liming7887@qq.com
 # @File : NumberUtils.py
 # @Project : mathematical_expression-py
+from mathematical_expression.core.manager import ConstantRegion
 from mathematical_expression.exceptional.AbnormalOperation import AbnormalOperation
 
 NumericalDictionary: dict = {
@@ -58,7 +59,9 @@ def priority_comparison(c1: str, c2: str):
     :param c2: 运算符2
     :return: 运算符1的优先级如果小于运算符2，那么该函数返回True
     """
-    return (c1 == '+' or c1 == '-') and (c2 == '*' or c2 == '/' or c2 == '%')
+    return (c1 == ConstantRegion.PLUS_SIGN or c1 == ConstantRegion.MINUS_SIGN) and \
+           (c2 == ConstantRegion.MULTIPLICATION_SIGN or c2 == ConstantRegion.DIVISION_SIGN or
+            c2 == ConstantRegion.REMAINDER_SIGN)
 
 
 def calculation(calculation_char: str, an: float, bn: float) -> float:
@@ -69,15 +72,15 @@ def calculation(calculation_char: str, an: float, bn: float) -> float:
     :param bn: 数值2
     :return: 数值1与数值2之间进行运算的结果数值，如果运算符错误，则抛出异常
     """
-    if calculation_char == '+':
+    if calculation_char == ConstantRegion.PLUS_SIGN:
         return an + bn
-    elif calculation_char == '-':
+    elif calculation_char == ConstantRegion.MINUS_SIGN:
         return an - bn
-    elif calculation_char == '*':
+    elif calculation_char == ConstantRegion.MULTIPLICATION_SIGN:
         return an * bn
-    elif calculation_char == '/':
+    elif calculation_char == ConstantRegion.DIVISION_SIGN:
         return an / bn
-    elif calculation_char == '%':
+    elif calculation_char == ConstantRegion.REMAINDER_SIGN:
         return an % bn
     else:
         raise AbnormalOperation(
@@ -98,17 +101,17 @@ def comparison_operation(calculation_char: str, left: float, right: float) -> bo
     :return:左值 与 右值 之间是否符合比较运算符的关系
             Whether the left value and right value conform to the comparison operator
     """
-    if calculation_char == '>':
+    if calculation_char == ConstantRegion.GREATER_THAN_SIGN:
         return left > right
-    elif calculation_char == '<':
+    elif calculation_char == ConstantRegion.LESS_THAN_SIGN:
         return left < right
-    elif calculation_char == '>=':
+    elif calculation_char == ConstantRegion.GREATER_THAN_OR_EQUAL_TO_SIGN:
         return left >= right
-    elif calculation_char == '<=':
+    elif calculation_char == ConstantRegion.LESS_THAN_OR_EQUAL_TO_SIGN:
         return left <= right
-    elif calculation_char == '=' or calculation_char == '==':
+    elif calculation_char == ConstantRegion.EQUAL_SIGN1 or calculation_char == ConstantRegion.EQUAL_SIGN2:
         return left == right
-    elif calculation_char == '!=' or calculation_char == '<>':
+    elif calculation_char == ConstantRegion.NOT_EQUAL_SIGN1 or calculation_char == ConstantRegion.NOT_EQUAL_SIGN2:
         return left != right
     else:
         raise AbnormalOperation("无法进行比较运算，因为有错误的运算符。\n"

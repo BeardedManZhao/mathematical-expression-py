@@ -9,7 +9,7 @@ from typing import List, Union, Any
 
 from mathematical_expression.core.calculation.Calculation import Calculation
 from mathematical_expression.core.calculation.number import bracketsCalculation2
-from mathematical_expression.core.manager import CalculationManagement
+from mathematical_expression.core.manager import CalculationManagement, ConstantRegion
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 
 
@@ -26,13 +26,13 @@ class BooleanCalculation(Calculation):
     )
 
     def format_str(self, string: str) -> str:
-        return string.replace(' ', '')
+        return string.replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)
 
     def check(self, string: str) -> None:
         """
         :param string: 需要被检查的公式
         """
-        split: List[Union[str, Any]] = re.split("<=|>=|!=|<>|==|[<=>]", string)
+        split: List[Union[str, Any]] = re.split(ConstantRegion.REGULAR_COMPARISON_OPERATOR, string)
         length = len(split)
         # 判断是否属于布尔表达式
         if length == 2:
