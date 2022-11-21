@@ -58,7 +58,9 @@ class BracketsCalculation2(BracketsCalculation):
         # 返回结果数据
         return CalculationNumberResults(
             recursion,
-            self.PREFIX_EXPRESSION_OPERATION.calculation(''.join(formula_builder), format_param).result,
+            self.PREFIX_EXPRESSION_OPERATION.calculation(
+                ConstantRegion.NO_CHAR.join(formula_builder), format_param
+            ).result,
             self.get_name()
         )
 

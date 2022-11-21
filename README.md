@@ -376,6 +376,63 @@ INFO:root:Find and prepare the startup function: DoubleValue
 计算层数：1	计算结果：21.0	计算来源：BracketsCalculation2
 ```
 
+### Multi parameter function operation expression
+
+- Full class name: mathematical_expression/core/calculation/number/functionFormulaCalculation2.py
+- 介绍
+
+  For some expression calculations that use functions in expressions, the above class can be used for operations. It is
+  an upgraded version of the "core. calculation. number. FunctionFormulaCalculation" class, which has appeared since
+  version 1.1, is also an extended implementation of its subclass.
+
+  Compared with the parent class, this component makes up for the deficiency that the parent class can only parse the
+  function expression with one parameter. In this component, you can use many real parameters for function operations,
+  such as sum (1,2,3)
+
+  This type of function is a multiparameter function. Next, let's look at the API usage example, in which the
+  calculation and results of the multiparameter function expression are shown.
+
+```python
+from mathematical_expression.core.calculation.function.Function import Function
+from mathematical_expression.core.calculation.number import functionFormulaCalculation2
+from mathematical_expression.core.manager import CalculationManagement
+
+
+# Implement a function
+class Sum(Function):
+    def run(self, floats: list):
+        res = 0
+        for d in floats:
+            res += d
+        return res
+
+
+# Start to create the function and register it with the manager
+CalculationManagement.register_function(Sum("sum"))
+# Get the calculation component that can parse the mathematical expression of multi parameter function
+functionFormulaCalculation2 = functionFormulaCalculation2.get_instance("zhao")
+# Enable shared pool
+functionFormulaCalculation2.startSharedPool = True
+# Build the mathematical expression to be calculated 
+# TODO More than one function parameter is used in the following mathematical expression
+s = "2 * (200 - sum(1 + 10.1, 2, 3)) + sum(10, 20)"
+# Check the mathematical expression for errors
+functionFormulaCalculation2.check(s)
+# Calculate the expression and get the result
+result = functionFormulaCalculation2.calculation(s)
+print(
+    f"计算层数：{result.get_result_layers()}"
+    f"\t计算结果：{result.get_result()}"
+    f"\t计算来源：{result.get_calculation_source_name()}"
+)
+```
+
+- 运行结果
+
+```
+计算层数：2	计算结果：397.8	计算来源：BracketsCalculation2
+```
+
 <hr>
 
 More information

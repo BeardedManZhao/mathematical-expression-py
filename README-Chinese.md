@@ -342,6 +342,57 @@ INFO:root:Find and prepare the startup function: DoubleValue
 计算层数：1	计算结果：21.0	计算来源：BracketsCalculation2
 ```
 
+### 多参函数运算表达式
+
+- 类组件：mathematical_expression/core/calculation/number/functionFormulaCalculation2.py
+- 介绍
+
+  针对一些在表达式中使用了函数的表达式计算，可以使用上面的类进行操作，它是“core.calculation.number.FunctionFormulaCalculation”类的升级版，从1.1版本开始出现，同时也是它的一个子类拓展实现。
+
+  相较于父类，本组件弥补了父类只能解析带有一个参数函数表达式的不足，在该组件中，可以使用很多的实参进行函数的运算，例如sum(
+  1,2,3)
+  这类函数，就是一个多参函数，接下来请看API的使用示例，在此示例中，展示了多惨函数表达式的计算与结果。
+
+```python
+from mathematical_expression.core.calculation.function.Function import Function
+from mathematical_expression.core.calculation.number import functionFormulaCalculation2
+from mathematical_expression.core.manager import CalculationManagement
+
+
+# 实现一个函数
+class Sum(Function):
+    def run(self, floats: list):
+        res = 0
+        for d in floats:
+            res += d
+        return res
+
+
+# 开始创建出来函数，并将其注册到管理者中
+CalculationManagement.register_function(Sum("sum"))
+# 将新版函数计算组件获取到
+functionFormulaCalculation2 = functionFormulaCalculation2.get_instance("zhao")
+# 启用共享池
+functionFormulaCalculation2.startSharedPool = True
+# 构建需要被计算的数学表达式 TODO 表达式中使用的函数参数不只一个
+s = "2 * (200 - sum(1 + 10.1, 2, 3)) + sum(10, 20)"
+# 检查表达式
+functionFormulaCalculation2.check(s)
+# 计算表达式，并获取结果
+result = functionFormulaCalculation2.calculation(s)
+print(
+    f"计算层数：{result.get_result_layers()}"
+    f"\t计算结果：{result.get_result()}"
+    f"\t计算来源：{result.get_calculation_source_name()}"
+)
+```
+
+- 运行结果
+
+```
+计算层数：2	计算结果：397.8	计算来源：BracketsCalculation2
+```
+
 <hr>
 
 更多信息

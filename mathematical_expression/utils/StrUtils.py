@@ -29,12 +29,16 @@ def string_to_double(string: str):
                     float_res = NumberUtils.tenfold(float_res) + char_to_integer(c)
             elif c == ConstantRegion.DECIMAL_POINT:
                 is_int = False
-        res = int_res + float_res / NumberUtils.power_of_ten(10, int(0 if float_res == 0 else NumberUtils.divide_ten(
-            int(float_res - NumberUtils.divide_ten(float_res))
-        )))
-        return res if string[0] != '-' else -res
+        # res = int_res + float_res / NumberUtils.power_of_ten(10, int(0 if float_res == 0 else NumberUtils.divide_ten(
+        #     int(float_res - NumberUtils.divide_ten(float_res))
+        # )))
+        res = int_res + float_res / NumberUtils.power_of_ten(10, (
+            0 if float_res <= 9 else int(0 if float_res == 0 else NumberUtils.divide_ten(
+                int(float_res - NumberUtils.divide_ten(float_res))
+            ))))
+        return res if string[0] != ConstantRegion.MINUS_SIGN else -res
     else:
-        raise AbnormalOperation("比较运算出现错误，在进行字符串转数值的时候，字符串的长度为 0，导致错误的发生。")
+        raise AbnormalOperation("运算出现错误，在进行字符串转数值的时候，字符串的长度为 0，导致错误的发生。")
 
 
 def char_to_integer(c: str):

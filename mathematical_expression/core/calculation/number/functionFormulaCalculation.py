@@ -27,7 +27,7 @@ class FunctionFormulaCalculation(NumberCalculation):
         # 创建一个布尔变量，记录是否有进入函数
         set_ok = False
         # 创建一个函数名称缓冲区
-        name: str = ''
+        name: str = ConstantRegion.NO_CHAR
         # 迭代公式找到函数的起始索引值
         for i in range(0, len(formula)):
             a_char: str = formula[i]
@@ -53,11 +53,11 @@ class FunctionFormulaCalculation(NumberCalculation):
                 string_builder.append(
                     str(function.run(
                         self.BRACKETS_CALCULATION_2.calculation(formula[start + len(name) + 1: i]).result)))
-                name = ''
+                name = ConstantRegion.NO_CHAR
             elif not set_ok and a_char != ConstantRegion.EMPTY:
                 string_builder.append(a_char)
         # 计算结果
-        return self.BRACKETS_CALCULATION_2.calculation(''.join(string_builder), format_param)
+        return self.BRACKETS_CALCULATION_2.calculation(ConstantRegion.NO_CHAR.join(string_builder), format_param)
 
     def check(self, string: str):
         # 创建两个栈，用来存储每一个函数的起始与终止索引

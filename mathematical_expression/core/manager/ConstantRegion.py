@@ -13,6 +13,8 @@ LEFT_BRACKET: str = '('
 RIGHT_BRACKET: str = ')'
 DECIMAL_POINT: str = '.'
 EMPTY: str = ' '
+NO_CHAR: str = ''
+COMMA = ','
 BA_ASCII: int = 0b1000001
 BZ_ASCII: int = 0b1011010
 SA_ASCII: int = 0b1100001
@@ -46,11 +48,11 @@ LOG_INFO_REGISTER_COMPONENT: str = "A computing component is registered "
 LOG_INFO_register_FUNCTION: str = "A function is registered "
 LOG_INFO_UNREGISTER_COMPONENT: str = "Preparing to unregister the compute component. Component name:"
 LOG_INFO_UNREGISTER_FUNCTION: str = "Prepare the logoff of a function. Function name:"
+LOG_INFO_SHARED_POOL: str = "Use shared pool data. The identity of the data is: "
 # python特有的常量数据
 REGULAR_CONTAINS_ADDSUB: str = "\\+" + MINUS_SIGN + "|" + MINUS_SIGN + "\\+" \
     if PLUS_SIGN == '+' else \
     PLUS_SIGN + MINUS_SIGN + '|' + MINUS_SIGN + PLUS_SIGN
-NO_CHAR: str = ''
 ARITHMETIC_OPERATOR_STRING: str = PLUS_SIGN.join([MINUS_SIGN, MULTIPLICATION_SIGN, DIVISION_SIGN, REMAINDER_SIGN])
 
 LEGAL_CHARACTERS: set = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
