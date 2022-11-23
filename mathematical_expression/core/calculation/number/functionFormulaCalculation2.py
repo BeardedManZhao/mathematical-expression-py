@@ -126,7 +126,7 @@ class FunctionFormulaCalculation2(FunctionFormulaCalculation):
         function_parameter_extraction(string, start, end, names, formula_builder)
         size1 = len(start)
         size2 = len(end)
-        if size1 != 0 and size1 == size2 and size1 == len(names):
+        if size1 == size2 and size1 == len(names):
             # 判断是否启动了共享池
             if self.startSharedPool:
                 # 更新公式与刷入数据
@@ -137,10 +137,11 @@ class FunctionFormulaCalculation2(FunctionFormulaCalculation):
                     self.shareEnd.clear()
                 elif len(self.shareNames) != 0:
                     self.shareNames.clear()
-                self.shareStart.extend(start)
-                self.shareEnd.extend(end)
-                self.shareNames.extend(names)
-            # 开始检查公式
+                if size1 != 0:
+                    self.shareStart.extend(start)
+                    self.shareEnd.extend(end)
+                    self.shareNames.extend(names)
+            # 开检查公式
             while len(start) != 0:
                 for s in string[start.pop(): end.pop()].split(ConstantRegion.COMMA):
                     super().BRACKETS_CALCULATION_2.check(s.strip())
@@ -148,7 +149,7 @@ class FunctionFormulaCalculation2(FunctionFormulaCalculation):
             raise WrongFormat(
                 "函数可能缺少起始或结束括号，没有正常的闭环。\nThe function may lack a start or end bracket, and there is no normal closed "
                 f"loop\nMissing function bracket logarithm: {NumberUtils.absolute_value(size2 - size1)}")
-        super().BRACKETS_CALCULATION_2.check(formula_builder)
+        super().BRACKETS_CALCULATION_2.check(ConstantRegion.NO_CHAR.join(formula_builder))
 
 
 def get_instance(name: str):

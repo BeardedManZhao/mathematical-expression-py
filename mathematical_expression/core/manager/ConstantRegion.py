@@ -6,8 +6,9 @@
 # @Project : mathematical-expression-py
 # 这里是框架的常量数据池，不建议更改，如果更改了的话，很可能造成运行混乱
 # 如果针对具有固定格式要求的数学公式需要对此处的参数进行配置，请在修改之后进行re_fresh函数的调用
+import logging
 
-VERSION: float = 1.0
+VERSION: float = 1.12
 STRING_NULL: str = "null"
 LEFT_BRACKET: str = '('
 RIGHT_BRACKET: str = ')'
@@ -50,6 +51,7 @@ LOG_INFO_UNREGISTER_COMPONENT: str = "Preparing to unregister the compute compon
 LOG_INFO_UNREGISTER_FUNCTION: str = "Prepare the logoff of a function. Function name:"
 LOG_INFO_SHARED_POOL: str = "Use shared pool data. The identity of the data is: "
 # python特有的常量数据
+LOG_LEVEL: int = logging.INFO
 REGULAR_CONTAINS_ADDSUB: str = "\\+" + MINUS_SIGN + "|" + MINUS_SIGN + "\\+" \
     if PLUS_SIGN == '+' else \
     PLUS_SIGN + MINUS_SIGN + '|' + MINUS_SIGN + PLUS_SIGN

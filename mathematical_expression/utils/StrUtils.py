@@ -20,22 +20,22 @@ def string_to_double(string: str):
     if len(string) > 0:
         int_res: int = 0
         float_res: int = 0
+        int_size = 0
+        float_size = 0
         is_int: bool = True
         for c in string:
             if c != ConstantRegion.DECIMAL_POINT and c != ConstantRegion.EMPTY:
                 if is_int:
                     int_res = NumberUtils.tenfold(int_res) + char_to_integer(c)
+                    int_size += 1
                 else:
                     float_res = NumberUtils.tenfold(float_res) + char_to_integer(c)
+                    float_size += 1
             elif c == ConstantRegion.DECIMAL_POINT:
+                if not is_int:
+                    raise AbnormalOperation(f"数值的浮点符号出现次数过多，无法计算{string}")
                 is_int = False
-        # res = int_res + float_res / NumberUtils.power_of_ten(10, int(0 if float_res == 0 else NumberUtils.divide_ten(
-        #     int(float_res - NumberUtils.divide_ten(float_res))
-        # )))
-        res = int_res + float_res / NumberUtils.power_of_ten(10, (
-            0 if float_res <= 9 else int(0 if float_res == 0 else NumberUtils.divide_ten(
-                int(float_res - NumberUtils.divide_ten(float_res))
-            ))))
+        res = int_res + float_res / NumberUtils.power_of_ten(10, float_size)
         return res if string[0] != ConstantRegion.MINUS_SIGN else -res
     else:
         raise AbnormalOperation("运算出现错误，在进行字符串转数值的时候，字符串的长度为 0，导致错误的发生。")
