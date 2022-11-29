@@ -27,7 +27,7 @@ def tenfold(number: int) -> int:
     :param number: 需要被做十倍乘法的数值
     :return: 数值 * 10
     """
-    return ((number << 2) << 1) + (number << 1)
+    return (number << 3) + (number << 1)
 
 
 def divide_ten(number: int) -> float:
