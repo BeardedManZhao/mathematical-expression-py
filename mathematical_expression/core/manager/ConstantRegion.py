@@ -8,7 +8,7 @@
 # 如果针对具有固定格式要求的数学公式需要对此处的参数进行配置，请在修改之后进行re_fresh函数的调用
 import logging
 
-VERSION: float = 1.12
+VERSION: float = 1.15
 STRING_NULL: str = "null"
 LEFT_BRACKET: str = '('
 RIGHT_BRACKET: str = ')'

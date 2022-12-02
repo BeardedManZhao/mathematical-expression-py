@@ -379,7 +379,7 @@ INFO:root:Find and prepare the startup function: DoubleValue
 ### Multi parameter function operation expression
 
 - Full class name: mathematical_expression/core/calculation/number/functionFormulaCalculation2.py
-- 介绍
+- introduce
 
   For some expression calculations that use functions in expressions, the above class can be used for operations. It is
   an upgraded version of the "core. calculation. number. FunctionFormulaCalculation" class, which has appeared since
@@ -427,10 +427,51 @@ print(
 )
 ```
 
-- 运行结果
+- Running results
 
 ```
 计算层数：2	计算结果：397.8	计算来源：BracketsCalculation2
+```
+
+### Fast interval sum calculation component (based on parenthesis expression)
+
+- Full class name：mathematical_expression/core/calculation/number/fastSumOfIntervalsBrackets.py
+- introduce
+
+  The new product of version 1.15, the interval fast sum component, is a fast component that sums all elements of an
+  interval with an equal difference of 1. It logically simulates an interval into a mathematical sequence and quickly
+  sums it through the sum formula.
+
+  This component implements the shared pool computing function. It will check, calculate, and record the results of the
+  last time, which can speed up computing. The specific API calls are shown below.
+
+```python
+from mathematical_expression.core.calculation.number import fastSumOfIntervalsBrackets
+
+# Get the quick sum calculation component of the interval
+fastSumOfIntervalsBrackets = fastSumOfIntervalsBrackets.get_instance("fastSumOfIntervalsBrackets")
+# Build the interval expression we need to calculate. 
+# The expression is composed of the left and right boundaries of the interval. 
+# The double formulas are separated by commas
+s = "1 + 10, 20 - (5 + 2)"
+# Check the expression. The shared pool has been enabled by default since version 1.2! No need to set manually
+# fastSumOfIntervalsBrackets.set_start_shared_pool(True)
+fastSumOfIntervalsBrackets.check(s)
+# Calculation result value
+calculation = fastSumOfIntervalsBrackets.calculation(s)
+# Print result value
+print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果：" + str(calculation.get_result()) +
+      "\n计算来源：" + calculation.get_calculation_source_name())
+```
+
+- Running results
+
+  从上面代码中我们可以看到，快速区间求和计算的公式由被逗号分割的两个括号表达式组成
+
+```
+计算层数：3
+计算结果：36.0
+计算来源：fastSumOfIntervalsBrackets
 ```
 
 <hr>

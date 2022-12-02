@@ -6,6 +6,7 @@
 # @Project : mathematical-expression-py
 from typing import List
 
+from mathematical_expression.core.calculation.SharedCalculation import SharedCalculation
 from mathematical_expression.core.calculation.number.functionFormulaCalculation import FunctionFormulaCalculation
 from mathematical_expression.core.manager import ConstantRegion, CalculationManagement
 from mathematical_expression.exceptional.ExtractException import ExtractException
@@ -70,7 +71,8 @@ def function_parameter_extraction2(string: str, start: list, end: list, names: l
     for i in range(0, len(string)):
         char = string[i]
         ascii_number: int = ord(char)
-        if ConstantRegion.BA_ASCII <= ascii_number <= ConstantRegion.BZ_ASCII or ConstantRegion.SZ_ASCII <= ascii_number <= ConstantRegion.SZ_ASCII:
+        if ConstantRegion.BA_ASCII <= ascii_number <= ConstantRegion.BZ_ASCII or \
+                ConstantRegion.SZ_ASCII <= ascii_number <= ConstantRegion.SZ_ASCII:
             # 如果是一个字母，代表是函数的名字，这里就切换状态并将名字添加到缓冲区
             if b:
                 b = True
@@ -86,12 +88,10 @@ def function_parameter_extraction2(string: str, start: list, end: list, names: l
             names.clear()
 
 
-class FunctionFormulaCalculation2(FunctionFormulaCalculation):
+class FunctionFormulaCalculation2(FunctionFormulaCalculation, SharedCalculation):
     shareStart: list = list()
     shareEnd: list = list()
     shareNames: list = list()
-    startSharedPool: bool = False
-    current_owner: str
 
     def calculation(self, formula: str, format_param: bool = True):
         start: list

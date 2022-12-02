@@ -12,7 +12,7 @@ NumericalDictionary: dict = {
 }
 
 
-def absolute_value(number: int):
+def absolute_value(number):
     """
     获取到一个数值的绝对值
     :param number: 需要被转换成为绝对值的数值
@@ -117,3 +117,12 @@ def comparison_operation(calculation_char: str, left: float, right: float) -> bo
         raise AbnormalOperation("无法进行比较运算，因为有错误的运算符。\n"
                                 "The comparison operation cannot be performed because there is an incorrect operator.\n"
                                 "Bad comparison operator => " + calculation_char)
+
+
+def sum_of_range(start: float, end: float) -> float:
+    if start == end:
+        return start
+    if float == int(end) and start == int(start):
+        return float(int((start + end) * (absolute_value(end - start) + 1)) >> 1)
+    else:
+        return ((start + end) * (absolute_value(int(end) - int(start)) + 1)) / 2

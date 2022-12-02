@@ -1,4 +1,4 @@
-# 数学表达式
+# ![image](https://user-images.githubusercontent.com/113756063/203919312-dcec4a61-2136-4af2-a361-66b2ed4e6a54.png)  数学表达式
 
 - Switch to [English Document](https://github.com/BeardedManZhao/mathematical-expression/blob/main/README.md)
 
@@ -391,6 +391,40 @@ print(
 
 ```
 计算层数：2	计算结果：397.8	计算来源：BracketsCalculation2
+```
+
+### 快速区间求和计算组件（基于括号表达式）
+
+- 类组件：mathematical_expression/core/calculation/number/fastSumOfIntervalsBrackets.py
+- 介绍
+  1.15版本的新产物，区间快速求和组件，是针对一个等差为1的区间进行所有元素求和的快速组件，它将一个区间在逻辑上模拟成为一个数学数列，并通过求和公式进行快速的求和。
+
+  该组件实现了共享池计算功能，将检查，计算，以及上一次结果记录实现，能够加快计算速度，具体API调用如下所示。
+
+```python
+from mathematical_expression.core.calculation.number import fastSumOfIntervalsBrackets
+
+# 获取到区间快速求和计算组件
+fastSumOfIntervalsBrackets = fastSumOfIntervalsBrackets.get_instance("fastSumOfIntervalsBrackets")
+# 构建我们需要计算的区间表达式，表达式由区间左右边界构成，其中的双公式中间使用逗号分割
+s = "1 + 10, 20 - (5 + 2)"
+# 检查表达式，共享池从1.15版本后，已经是默认启用的状态了！不需要手动设置了
+# fastSumOfIntervalsBrackets.set_start_shared_pool(True)
+fastSumOfIntervalsBrackets.check(s)
+# 计算结果数值
+calculation = fastSumOfIntervalsBrackets.calculation(s)
+# 打印结果数值
+print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果：" + str(calculation.get_result()) +
+      "\n计算来源：" + calculation.get_calculation_source_name())
+```
+
+- 运行结果
+  从上面代码中我们可以看到，快速区间求和计算的公式由被逗号分割的两个括号表达式组成
+
+```
+计算层数：3
+计算结果：36.0
+计算来源：fastSumOfIntervalsBrackets
 ```
 
 <hr>
