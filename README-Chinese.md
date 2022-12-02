@@ -432,5 +432,5 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 更多信息
 
 - date: 2022-11-14
-- Switch to [English Document](https://github.com/BeardedManZhao/mathematical-expression/blob/main/README.md)
+- Switch to [English Document](https://github.com/BeardedManZhao/mathematical-expression-py/blob/main/README.md)
 - [mathematical-expression-Java](https://github.com/BeardedManZhao/mathematical-expression)
