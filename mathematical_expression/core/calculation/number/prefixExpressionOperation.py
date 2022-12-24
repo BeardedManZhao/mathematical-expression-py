@@ -84,8 +84,6 @@ class PrefixExpressionOperation(NumberCalculation):
             raise WrongFormat(
                 "本组件只能解析不包含括号的表达式！！！\nThis component can only parse expressions without parentheses!!!\nWrong format "
                 "=> " + string)
-        else:
-            super().check(string)
 
     def format_str(self, string: str) -> str:
         return re.subn(ConstantRegion.REGULAR_CONTAINS_ADDSUB, ConstantRegion.MINUS_SIGN, string)[0] \

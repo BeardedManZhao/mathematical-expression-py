@@ -7,6 +7,7 @@
 # 这里是框架的常量数据池，不建议更改，如果更改了的话，很可能造成运行混乱
 # 如果针对具有固定格式要求的数学公式需要对此处的参数进行配置，请在修改之后进行re_fresh函数的调用
 import logging
+from typing import List
 
 VERSION: float = 1.15
 STRING_NULL: str = "null"
@@ -41,7 +42,7 @@ REGULAR_COMPARISON_OPERATOR: str = "{0}|{1}|{2}|{3}|{4}|[{5}{6}{7}]".format(LESS
                                                                             EQUAL_SIGN1,
                                                                             GREATER_THAN_SIGN)
 REGULAR_PURE_LETTER: str = "[a-zA-Z]+"
-REGULAR_CONTAINS_BRACKET: str = ".*[" + LEFT_BRACKET + RIGHT_BRACKET + "].*"
+REGULAR_CONTAINS_BRACKET: str = ".*?[^" + LEFT_BRACKET + RIGHT_BRACKET + "][0-9 ]$"
 LOG_INFO_GET_FUNCTION: str = "Get a function component from the manager. => "
 LOG_INFO_GET_COMPONENT: str = "Get a computing component from the manager. => "
 LOG_INFO_FIND_FUNCTION: str = "Find and prepare the startup function: "
@@ -57,6 +58,8 @@ REGULAR_CONTAINS_ADDSUB: str = "\\+" + MINUS_SIGN + "|" + MINUS_SIGN + "\\+" \
     PLUS_SIGN + MINUS_SIGN + '|' + MINUS_SIGN + PLUS_SIGN
 ARITHMETIC_OPERATOR_STRING: str = PLUS_SIGN.join([MINUS_SIGN, MULTIPLICATION_SIGN, DIVISION_SIGN, REMAINDER_SIGN])
 
+NUMBER_SET: List[str] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', RIGHT_BRACKET]
+
 LEGAL_CHARACTERS: set = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                          EMPTY, PLUS_SIGN, MINUS_SIGN,
                          MULTIPLICATION_SIGN, DIVISION_SIGN,
@@ -70,7 +73,7 @@ def re_fresh():
     """
     global REGULAR_CONTAINS_ADDSUB, ARITHMETIC_OPERATOR_STRING, EQUAL_SIGN2, NOT_EQUAL_SIGN1, NOT_EQUAL_SIGN2
     global GREATER_THAN_OR_EQUAL_TO_SIGN, LESS_THAN_OR_EQUAL_TO_SIGN
-    global REGULAR_COMPARISON_OPERATOR, REGULAR_CONTAINS_BRACKET, LEGAL_CHARACTERS
+    global REGULAR_COMPARISON_OPERATOR, REGULAR_CONTAINS_BRACKET, LEGAL_CHARACTERS, REGULAR_CONTAINS_BRACKET
     REGULAR_CONTAINS_ADDSUB = "\\+" + MINUS_SIGN + "|" + MINUS_SIGN + "\\+" \
         if PLUS_SIGN == '+' else \
         PLUS_SIGN + MINUS_SIGN + '|' + MINUS_SIGN + PLUS_SIGN
@@ -91,3 +94,4 @@ def re_fresh():
                         MULTIPLICATION_SIGN, DIVISION_SIGN,
                         REMAINDER_SIGN,
                         LEFT_BRACKET, RIGHT_BRACKET, DECIMAL_POINT}
+    REGULAR_CONTAINS_BRACKET = ".*?[^" + LEFT_BRACKET + RIGHT_BRACKET + "][0-9 ]$"

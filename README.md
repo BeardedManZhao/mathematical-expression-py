@@ -439,7 +439,7 @@ print(
 - introduce
 
   The new product of version 1.15, the interval fast sum component, is a fast component that sums all elements of an
-  interval with an equal difference of 1. It logically simulates an interval into a mathematical sequence and quickly
+  interval with an equal difference of n. It logically simulates an interval into a mathematical sequence and quickly
   sums it through the sum formula.
 
   This component implements the shared pool computing function. It will check, calculate, and record the results of the
@@ -457,6 +457,8 @@ s = "1 + 10, 20 - (5 + 2)"
 # Check the expression. The shared pool has been enabled by default since version 1.2! No need to set manually
 # fastSumOfIntervalsBrackets.set_start_shared_pool(True)
 fastSumOfIntervalsBrackets.check(s)
+# The step size of each element in the interval can be set after version 1.15
+fastSumOfIntervalsBrackets.step = 2
 # Calculation result value
 calculation = fastSumOfIntervalsBrackets.calculation(s)
 # Print result value
@@ -466,12 +468,56 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 
 - Running results
 
-  从上面代码中我们可以看到，快速区间求和计算的公式由被逗号分割的两个括号表达式组成
+  From the above code, we can see that the formula for quick interval summation is composed of two parenthesis
+  expressions separated by commas
 
 ```
 计算层数：3
 计算结果：36.0
 计算来源：fastSumOfIntervalsBrackets
+```
+
+### Fast interval cumulative calculation component (based on parenthesis expression)
+
+- Full class name: mathematical_expression/core/calculation/number/fastSumOfIntervalsBrackets.py
+
+- Introduction
+
+  A new product of version 1.1.5, the interval fast accumulation component, is a fast component that accumulates all
+  elements of an interval with an equal difference of n. It logically simulates an interval into a mathematical sequence
+  and performs fast accumulation through the sum formula.
+
+  This component implements the shared pool computing function. It will check, calculate, and record the results of the
+  last time, which can speed up computing. The specific API calls are shown below.
+
+```python
+from mathematical_expression.core.calculation.number import fastMultiplyOfIntervalsBrackets
+
+# Get interval fast cumulative calculation component
+fastMultiplyOfIntervalsBrackets = fastMultiplyOfIntervalsBrackets.get_instance("fastMultiplyOfIntervalsBrackets")
+# Build the interval expression we need to calculate. The expression is composed of the left and right boundaries of the interval. The double formulas are separated by commas
+s = "1 + 10, 20 - (5 + 2)"
+# Check the expression. The shared pool has been enabled by default since version 1.15! No need to set manually
+# fastSumOfIntervalsBrackets.set_start_shared_pool(True)
+fastMultiplyOfIntervalsBrackets.check(s)
+# The step size of each element in the interval can be set after version 1.15
+fastMultiplyOfIntervalsBrackets.step = 2
+# Calculation result value
+calculation = fastMultiplyOfIntervalsBrackets.calculation(s)
+# Print result value
+print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果：" + str(calculation.get_result()) +
+      "\n计算来源：" + calculation.get_calculation_source_name())
+```
+
+- Running results
+
+  From the above code, we can see that the formula for quick interval summation is composed of two parenthesis
+  expressions separated by commas
+
+```
+计算层数：3
+计算结果：143.0
+计算来源：fastMultiplyOfIntervalsBrackets
 ```
 
 <hr>

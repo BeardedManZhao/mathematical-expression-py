@@ -84,12 +84,12 @@ def calculation(calculation_char: str, an: float, bn: float) -> float:
         return an % bn
     else:
         raise AbnormalOperation(
-            "操作数计算异常，您的计算模式不存在，错误的计算模式 = [" + calculation_char + "]\n"
-                                                                                        "Operand calculation "
-                                                                                        "exception. Your calculation "
-                                                                                        "mode does not exist. Wrong "
-                                                                                        "calculation mode "
-                                                                                        "= [" + calculation_char + "]")
+            "操作数计算异常，您的计算模式不存在，错误的计算模式 = [" + calculation_char +
+            "]\nOperand calculation "
+            "exception. Your calculation "
+            "mode does not exist. Wrong "
+            "calculation mode "
+            "= [" + calculation_char + "]")
 
 
 def comparison_operation(calculation_char: str, left: float, right: float) -> bool:
@@ -119,10 +119,43 @@ def comparison_operation(calculation_char: str, left: float, right: float) -> bo
                                 "Bad comparison operator => " + calculation_char)
 
 
-def sum_of_range(start: float, end: float) -> float:
+def sum_of_range(start: float, end: float, step=1) -> float:
+    """
+    计算一个区间内所有数值的累加结果数值
+    :param step: 累加区间的区间元素步长
+    :param start: 区间的左起始区间
+    :param end: 区间的右终止区间
+    :return: 区间内所有数值的累加数值结果
+    """
     if start == end:
         return start
-    if float == int(end) and start == int(start):
-        return float(int((start + end) * (absolute_value(end - start) + 1)) >> 1)
+    if step == 1:
+        if float == int(end) and start == int(start):
+            return float(int((start + end) * (absolute_value(end - start) + 1)) >> 1)
+        else:
+            return ((start + end) * (absolute_value(int(end) - int(start)) + 1)) / 2
     else:
-        return ((start + end) * (absolute_value(int(end) - int(start)) + 1)) / 2
+        abs_value = absolute_value(end - start)
+        end -= abs_value % step
+        abs_value = absolute_value(end - start)
+        n = 1 + (abs_value / step)
+        return n * start + n * (n - 1) * (max(step, 2)) / 2
+
+
+def multiply_of_range(start: float, end: float, step: float):
+    """
+    计算一个区间内所有数值的累乘结果数值
+    :param start: 区间内左起始区间
+    :param end: 区间内右终止区间
+    :param step: 区间内元素之间的步长
+    :return: 区间内所有数值的累乘结果数值
+    """
+    if start == end:
+        return start
+    else:
+        res: float = start
+        temp = start + step
+        while temp <= end:
+            res *= temp
+            temp += step
+        return res

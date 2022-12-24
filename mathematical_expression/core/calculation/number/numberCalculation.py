@@ -14,7 +14,8 @@ from mathematical_expression.utils import NumberUtils
 class NumberCalculation(Calculation):
     """
     计算结果为数值的数学表达式结果，其中提供了数学表达式的计算函数
-    The calculation result is the numerical mathematical expression result, in which the calculation function of the mathematical expression is provided
+    The calculation result is the numerical mathematical expression result,
+    in which the calculation function of the mathematical expression is provided
     """
 
     def calculation(self, formula: str, format_param: bool = True):
@@ -29,11 +30,18 @@ class NumberCalculation(Calculation):
         pass
 
     def check(self, string: str):
+        last = len(string) - 1
+        while string[last] == ConstantRegion.EMPTY:
+            last += 1
+        if string is None:
+            raise WrongFormat("您传入的表达式为null 无法进行计算。")
+        elif string[last] not in ConstantRegion.NUMBER_SET:
+            raise WrongFormat("您传入的表达式格式有误，最后一个字符不是一个数值！！！")
         # 左括号出现数量
         left: int = 0
         # 右括号出现数量
         right: int = 0
-        for c in string:
+        for c in string[:last]:
             if c == ConstantRegion.LEFT_BRACKET:
                 left += 1
             elif c == ConstantRegion.RIGHT_BRACKET:
@@ -42,12 +50,12 @@ class NumberCalculation(Calculation):
                 raise WrongFormat("您的格式不正确，出现了数学表达式中不应该存在的字符。\n"
                                   "Your format is incorrect. There are characters that should not exist in the "
                                   "mathematical expression.\n"
-                                  "Wrong character [" + c + "] from [" + string + "]")
+                                  f"Wrong character [{c}] from [{string}]")
         if left != right:
             abs_value = NumberUtils.absolute_value(left - right)
             return WrongFormat(
-                "您的格式不正确，出现了数学表达式中不正确的括号对数，请您检查是否缺少或者多出了[" + abs_value + "]个括号。\n"
-                                                                                                              "Your format is incorrect. There are incorrect parenthesis logarithms in the mathematical "
-                                                                                                              "expression. Please check whether [" + abs_value + "] parentheses are missing or extra.\n "
-                                                                                                                                                                 "Wrong from [" + string + "]"
+                f"您的格式不正确，出现了数学表达式中不正确的括号对数，请您检查是否缺少或者多出了[{abs_value}]个括号。\n"
+                "Your format is incorrect. There are incorrect parenthesis logarithms in the mathematical "
+                "expression. Please check whether [{abs_value}] parentheses are missing or extra.\n "
+                f"Wrong from [{string}]"
             )

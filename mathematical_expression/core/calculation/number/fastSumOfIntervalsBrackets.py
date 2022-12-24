@@ -50,6 +50,7 @@ class FastSumOfIntervalsBrackets(BracketsCalculation2, SharedCalculation):
 
     left: str
     right: str
+    step: int = 1
     shareNumberCalculation: CalculationNumberResults = None
 
     def calculation(self, formula: str, format_param: bool = True):
@@ -76,11 +77,8 @@ class FastSumOfIntervalsBrackets(BracketsCalculation2, SharedCalculation):
         if left_temp == right_temp:
             return calculation_number_results1
         calculation_number_results2 = self.BRACKETS_CALCULATION_2.calculation(right_temp)
-        calculation_number_results3 = CalculationNumberResults(
-            result_layers=calculation_number_results1.result_layers + calculation_number_results2.result_layers,
-            result=NumberUtils.sum_of_range(calculation_number_results1.result, calculation_number_results2.result),
-            calculation_source_name=self.get_name()
-        )
+        calculation_number_results3 = self.calculation_by_number_results(calculation_number_results1,
+                                                                         calculation_number_results2)
         if is_ok:
             self.shareNumberCalculation = calculation_number_results3
         return calculation_number_results3
@@ -112,3 +110,16 @@ class FastSumOfIntervalsBrackets(BracketsCalculation2, SharedCalculation):
                 "Error parsing the interval summation expression. The expression in this component needs two "
                 "expressions separated by commas to form two boundary values in the cumulative interval."
                 "Number of expressions you provide => " + str(length))
+
+    def calculation_by_number_results(self, start: CalculationNumberResults, end: CalculationNumberResults):
+        """
+        根据区间起始与终止数值结果计算出区间的汇总计算数值
+        :param start: 区间起始数值
+        :param end: 区间终止数值
+        :return: 一个区间内所有元素的累加数值结果
+        """
+        return CalculationNumberResults(
+            result_layers=start.result_layers + end.result_layers,
+            result=NumberUtils.sum_of_range(start.result, end.result, self.step),
+            calculation_source_name=self.get_name()
+        )
