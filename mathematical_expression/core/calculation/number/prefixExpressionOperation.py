@@ -13,6 +13,11 @@ from mathematical_expression.exceptional.ExtractException import ExtractExceptio
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 from mathematical_expression.utils import StrUtils, NumberUtils
 
+"""数学表达式的检查正则对象"""
+pattern = re.compile(ConstantRegion.REGULAR_CONTAINS_BRACKET)
+"""正负号，用于将所有的 +-或-+ 替换成为 -"""
+SIGN_PATTERN = re.compile(ConstantRegion.REGULAR_CONTAINS_ADDSUB)
+
 
 class PrefixExpressionOperation(NumberCalculation):
     """
@@ -23,11 +28,12 @@ class PrefixExpressionOperation(NumberCalculation):
 
     def calculation(self, formula: str, format_param: bool = True):
         """
-        计算一个数学表达式，并将计算细节与计算结果存储到数值结果集中。
-        Compute a mathematical expression and store the calculation details and results in the numerical result set.
-        :param formula: 需要计算的数学公式
+        :param formula:需要被计算的数学公式的字符串对象
         :param format_param:是否需要对公式进行格式化
         :return:数学表达式的计算结果，这里是一个包含数值结果的对象
+
+        计算一个数学表达式，并将计算细节与计算结果存储到数值结果集中。
+        Compute a mathematical expression and store the calculation details and results in the numerical result set.
         """
         if format_param:
             new_formula = self.format_str(formula)
@@ -80,14 +86,13 @@ class PrefixExpressionOperation(NumberCalculation):
         return CalculationNumberResults(i, res, self.get_name())
 
     def check(self, string: str):
-        if re.match(ConstantRegion.REGULAR_CONTAINS_BRACKET, string):
+        if pattern.match(string):
             raise WrongFormat(
                 "本组件只能解析不包含括号的表达式！！！\nThis component can only parse expressions without parentheses!!!\nWrong format "
                 "=> " + string)
 
     def format_str(self, string: str) -> str:
-        return re.subn(ConstantRegion.REGULAR_CONTAINS_ADDSUB, ConstantRegion.MINUS_SIGN, string)[0] \
-            .replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)
+        return SIGN_PATTERN.sub(ConstantRegion.MINUS_SIGN, string).replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)
 
 
 def get_instance(name: str):

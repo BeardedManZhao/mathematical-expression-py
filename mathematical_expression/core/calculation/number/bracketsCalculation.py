@@ -4,9 +4,13 @@
 # @Email : liming7887@qq.com
 # @File : bracketsCalculation.py
 # @Project : mathematical_expression-py
+import re
 
 from mathematical_expression.core.calculation.number.numberCalculation import NumberCalculation
 from mathematical_expression.core.manager import ConstantRegion
+
+"""正则表达式对象，用于将所有的不可见字符删除"""
+ALL_INVISIBLE_CHARACTERS_PATTERN = re.compile("\\s+")
 
 
 class BracketsCalculation(NumberCalculation):
@@ -24,6 +28,6 @@ class BracketsCalculation(NumberCalculation):
         :param string:需要被格式化的数学公式
         :return:格式化之后的顺序额表达式
         """
-        return string.replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR).strip(
-            ConstantRegion.ARITHMETIC_OPERATOR_STRING
-        )
+        return ALL_INVISIBLE_CHARACTERS_PATTERN.sub(
+            ConstantRegion.EMPTY, string
+        ).strip(ConstantRegion.ARITHMETIC_OPERATOR_STRING)

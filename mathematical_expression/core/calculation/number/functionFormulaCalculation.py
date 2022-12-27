@@ -102,8 +102,7 @@ class FunctionFormulaCalculation(NumberCalculation):
                               NumberUtils.absolute_value(length - length1))
 
     def format_str(self, string: str) -> str:
-        return string.strip(ConstantRegion.ARITHMETIC_OPERATOR_STRING) \
-            .replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)
+        return string.replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)
 
 
 def get_instance(name: str):

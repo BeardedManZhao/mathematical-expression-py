@@ -12,17 +12,20 @@ from mathematical_expression.exceptional.ExtractException import ExtractExceptio
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 from mathematical_expression.utils import StrUtils
 
+INTERVAL_EXTRACTION_PATTERN = re.compile("[\\[\\]]")
+
 
 class CumulativeCalculation(BracketsCalculation2):
     """
-    累加计算公式解析组件，支持使用未知形参，以及其区间作为公式进行累加加过的计算，例如传入公式 “n [0, 10, 2] (1 + n * n)” 就是 (1 + 0 * 0) + (1 + 2 * 2) + ... + (1 + 10 * 10)
+    累加计算公式解析组件，支持使用未知形参，以及其区间作为公式进行累加加过的计算
+    例如传入公式 “n [0, 10, 2] (1 + n * n)” 就是 (1 + 0 * 0) + (1 + 2 * 2) + ... + (1 + 10 * 10)
     The cumulative calculation formula analysis component supports the use of unknown formal parameters
     and their intervals as formulas for cumulative calculation.
     For example, the formula "n [0, 10, 2] (1+n * n)" passed in is (1+0 * 0)+(1+2 * 2)+...+(1+10 * 10)
     """
 
     def format_str(self, string: str) -> str:
-        split = re.split("[\\[\\]]", string)
+        split = INTERVAL_EXTRACTION_PATTERN.split(string)
         # 获取到累加的符号
         f = split[0]
         # 获取到区间中的起始终止与步长数值
@@ -47,7 +50,7 @@ class CumulativeCalculation(BracketsCalculation2):
         return super().calculation(self.format_str(formula) if format_param else formula, False)
 
     def check(self, string: str):
-        split = re.split("[\\[\\]]", string)
+        split = INTERVAL_EXTRACTION_PATTERN.split(string)
         if len(split) == 3:
             if len(split[1].split(',')) == 3:
                 super().check(split[2].replace(split[0], '0'))

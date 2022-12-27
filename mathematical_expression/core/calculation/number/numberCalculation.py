@@ -20,12 +20,13 @@ class NumberCalculation(Calculation):
 
     def calculation(self, formula: str, format_param: bool = True):
         """
-        计算一个数学表达式，并将计算细节与计算结果存储到数值结果集中。
-        Compute a mathematical expression and store the calculation details and results in the numerical result set.
         :param formula 被计算的表达式，要求返回值是一个数值。
                The returned value of the evaluated expression is required to be a numeric value.
         :param format_param: 是否要在计算之前对公式进行一个格式化，如果设置为True 那么会先进行一个格式化，然后在进行数学计算
-        :return:
+        :return:表达式计算结果
+
+        计算一个数学表达式，并将计算细节与计算结果存储到数值结果集中。
+        Compute a mathematical expression and store the calculation details and results in the numerical result set.
         """
         pass
 
