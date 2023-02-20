@@ -42,7 +42,6 @@ REGULAR_COMPARISON_OPERATOR: str = "{0}|{1}|{2}|{3}|{4}|[{5}{6}{7}]".format(LESS
                                                                             EQUAL_SIGN1,
                                                                             GREATER_THAN_SIGN)
 REGULAR_PURE_LETTER: str = "[a-zA-Z]+"
-REGULAR_CONTAINS_BRACKET: str = ".*?[^" + LEFT_BRACKET + RIGHT_BRACKET + "][0-9 ]$"
 LOG_INFO_GET_FUNCTION: str = "Get a function component from the manager. => "
 LOG_INFO_GET_COMPONENT: str = "Get a computing component from the manager. => "
 LOG_INFO_FIND_FUNCTION: str = "Find and prepare the startup function: "
@@ -73,7 +72,7 @@ def re_fresh():
     """
     global REGULAR_CONTAINS_ADDSUB, ARITHMETIC_OPERATOR_STRING, EQUAL_SIGN2, NOT_EQUAL_SIGN1, NOT_EQUAL_SIGN2
     global GREATER_THAN_OR_EQUAL_TO_SIGN, LESS_THAN_OR_EQUAL_TO_SIGN
-    global REGULAR_COMPARISON_OPERATOR, REGULAR_CONTAINS_BRACKET, LEGAL_CHARACTERS, REGULAR_CONTAINS_BRACKET
+    global REGULAR_COMPARISON_OPERATOR, LEGAL_CHARACTERS
     REGULAR_CONTAINS_ADDSUB = "\\+" + MINUS_SIGN + "|" + MINUS_SIGN + "\\+" \
         if PLUS_SIGN == '+' else \
         PLUS_SIGN + MINUS_SIGN + '|' + MINUS_SIGN + PLUS_SIGN
@@ -94,4 +93,3 @@ def re_fresh():
                         MULTIPLICATION_SIGN, DIVISION_SIGN,
                         REMAINDER_SIGN,
                         LEFT_BRACKET, RIGHT_BRACKET, DECIMAL_POINT}
-    REGULAR_CONTAINS_BRACKET = ".*?[^" + LEFT_BRACKET + RIGHT_BRACKET + "][0-9 ]$"

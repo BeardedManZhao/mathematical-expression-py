@@ -33,7 +33,7 @@ class NumberCalculation(Calculation):
     def check(self, string: str):
         last = len(string) - 1
         while string[last] == ConstantRegion.EMPTY:
-            last += 1
+            last -= 1
         if string is None:
             raise WrongFormat("您传入的表达式为null 无法进行计算。")
         elif string[last] not in ConstantRegion.NUMBER_SET:

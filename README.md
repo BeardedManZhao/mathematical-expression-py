@@ -17,6 +17,47 @@ pip install mathematical_expression_py
 
 ## Framework
 
+### Use mathematical_ Expression package
+
+```python
+# import mathematical expression parsing library
+import mathematical_expression as mathematical
+
+# Build two expressions to be evaluated
+s1, s2 = "1 + 20 - 2 + 4", "1 + 20 - (2 + 4)"
+# Obtaining an expression evaluation component without parentheses through the library
+prefixExpressionOperation = mathematical.prefixExpressionOperation.get_instance("prefixExpressionOperation")
+# Obtain the bracketed expression calculation component through the library
+bracketsCalculation2 = mathematical.bracketsCalculation2.get_instance("bracketsCalculation2")
+
+# Pass the first formula to the parenthesis expression calculation component Check and calculate the formula can also be passed to the parenthesis expression calculation
+prefixExpressionOperation.check(s1)
+calculation = prefixExpressionOperation.calculation(s1)
+# Print the calculation result of the first expression
+print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果：" + str(calculation.get_result()) +
+      "\n计算来源：" + calculation.get_calculation_source_name())
+
+# Pass the second formula to the bracketed expression calculation component for check and calculation
+bracketsCalculation2.check(s2)
+calculation2 = bracketsCalculation2.calculation(s2)
+# Print the calculation result of the second expression
+print("计算层数：" + str(calculation2.get_result_layers()) + "\n计算结果：" + str(calculation2.get_result()) +
+      "\n计算来源：" + calculation2.get_calculation_source_name())
+```
+
+- Running results
+  The module objects of each calculation component can be obtained by importing the package, which can effectively
+  reduce the package guide code.
+
+```
+计算层数：1
+计算结果：23.0
+计算来源：prefixExpressionOperation
+计算层数：2
+计算结果：15.0
+计算来源：bracketsCalculation2
+```
+
 ### Calculation Manager
 
 - Full class name：mathematical_expression/core/manager/CalculationManagement.py

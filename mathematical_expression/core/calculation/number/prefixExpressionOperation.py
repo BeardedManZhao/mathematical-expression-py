@@ -13,8 +13,6 @@ from mathematical_expression.exceptional.ExtractException import ExtractExceptio
 from mathematical_expression.exceptional.WrongFormat import WrongFormat
 from mathematical_expression.utils import StrUtils, NumberUtils
 
-"""数学表达式的检查正则对象"""
-pattern = re.compile(ConstantRegion.REGULAR_CONTAINS_BRACKET)
 """正负号，用于将所有的 +-或-+ 替换成为 -"""
 SIGN_PATTERN = re.compile(ConstantRegion.REGULAR_CONTAINS_ADDSUB)
 
@@ -86,10 +84,12 @@ class PrefixExpressionOperation(NumberCalculation):
         return CalculationNumberResults(i, res, self.get_name())
 
     def check(self, string: str):
-        if pattern.match(string):
-            raise WrongFormat(
-                "本组件只能解析不包含括号的表达式！！！\nThis component can only parse expressions without parentheses!!!\nWrong format "
-                "=> " + string)
+        for c in string:
+            if c == '(' or c == ')':
+                raise WrongFormat(
+                    "本组件只能解析不包含括号的表达式！！！\nThis component can only parse expressions without parentheses!!!"
+                    "\nWrong format "
+                    "=> " + string)
 
     def format_str(self, string: str) -> str:
         return SIGN_PATTERN.sub(ConstantRegion.MINUS_SIGN, string).replace(ConstantRegion.EMPTY, ConstantRegion.NO_CHAR)

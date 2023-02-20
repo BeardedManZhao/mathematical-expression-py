@@ -36,15 +36,16 @@ class CumulativeCalculation(BracketsCalculation2):
         # 获取公式位
         format1 = split[2]
         # 构造累加公式
-        new_formula: str = ''
+        new_formula: list = []
         number: int = start
         while number <= end:
-            new_formula.join(
-                [ConstantRegion.LEFT_BRACKET, format1.replace(f, str(number)),
-                 ConstantRegion.RIGHT_BRACKET, ConstantRegion.PLUS_SIGN]
-            )
+            new_formula.append(ConstantRegion.LEFT_BRACKET)
+            new_formula.append(format1.replace(f, str(number)))
+            new_formula.append(ConstantRegion.RIGHT_BRACKET)
+            new_formula.append(ConstantRegion.PLUS_SIGN)
             number += equal_difference
-        return super().format_str(new_formula.strip(ConstantRegion.ARITHMETIC_OPERATOR_STRING))
+        return super().format_str(
+            ConstantRegion.EMPTY.join(new_formula).strip(ConstantRegion.ARITHMETIC_OPERATOR_STRING))
 
     def calculation(self, formula: str, format_param: bool = True):
         return super().calculation(self.format_str(formula) if format_param else formula, False)
