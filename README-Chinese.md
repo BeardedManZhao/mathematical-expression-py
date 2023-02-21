@@ -16,6 +16,8 @@ pip install mathematical_expression_py
 
 ### 使用 mathematical_expression 包
 
+在1.2版本之后，开始支持使用 mathematical_expression 包获取到各种计算组件，减少导包代码量与库调用难度。
+
 ```python
 # 导入 mathematical-expression 解析库
 import mathematical_expression as mathematical
@@ -26,6 +28,8 @@ s1, s2 = "1 + 20 - 2 + 4", "1 + 20 - (2 + 4)"
 prefixExpressionOperation = mathematical.prefixExpressionOperation.get_instance("prefixExpressionOperation")
 # 通过库获取到有括号表达式计算组件
 bracketsCalculation2 = mathematical.bracketsCalculation2.get_instance("bracketsCalculation2")
+# 另一种方式获取到计算组件对象 这种方式更加类似Java中的写法
+# bracketsCalculation2 = mathematical.get_instance(mathematical.booleanCalculation2, "bracketsCalculation2")
 
 # 将第一种公式传递给无括号表达式计算组件检查与计算 该公式也允许传递给有括号表达式计算
 prefixExpressionOperation.check(s1)

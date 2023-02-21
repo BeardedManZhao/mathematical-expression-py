@@ -1,25 +1,24 @@
-# 导入 mathematical-expression 解析库
-import mathematical_expression as mathematical
-# 导入需要被实现的函数对象
-from mathematical_expression.core.calculation.function.Function import Function
-
-
-# 实现一个函数
-class Function1(Function):
-    def run(self, floats: list):
-        res1 = 0
-        for d in floats:
-            res1 += d
-        return res1
-
-
-# 将函数注册
-mathematical.register_function(Function1("myFun"))
-# 获取到函数计算组件
-functionFormulaCalculation2 = mathematical.functionFormulaCalculation2.get_instance("fun")
-# 构建需要计算的表达式
-s = "1 + myFun(10, 20) * 2"
-# 检查计算
-functionFormulaCalculation2.check(s)
-res = functionFormulaCalculation2.calculation(s)
-print(res)
+# # 导入 mathematical-expression 解析库
+# import mathematical_expression as mathematical
+#
+# # 构建需要计算的两种表达式
+# s1, s2 = "1 + 20 - 2 + 4", "1 + 20 - (2 + 4)"
+# # 通过库获取到无括号表达式计算组件
+# prefixExpressionOperation = mathematical.prefixExpressionOperation.get_instance("prefixExpressionOperation")
+# # 通过库获取到有括号表达式计算组件
+# # bracketsCalculation2 = mathematical.bracketsCalculation2.get_instance("bracketsCalculation2")
+# # 另一种方式获取到计算组件对象 这种方式更加类似Java中的写法
+# bracketsCalculation2 = mathematical.get_instance(mathematical.booleanCalculation2, "bracketsCalculation2")
+# # 将第一种公式传递给无括号表达式计算组件检查与计算 该公式也允许传递给有括号表达式计算
+# prefixExpressionOperation.check(s1)
+# calculation = prefixExpressionOperation.calculation(s1)
+# # 打印出第一个表达式的计算结果
+# print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果：" + str(calculation.get_result()) +
+#       "\n计算来源：" + calculation.get_calculation_source_name())
+#
+# # 将第二种公式传递给有括号表达式计算组件进行检查与计算
+# bracketsCalculation2.check(s2)
+# calculation2 = bracketsCalculation2.calculation(s2)
+# # 打印出第二个表达式的计算结果
+# print("计算层数：" + str(calculation2.get_result_layers()) + "\n计算结果：" + str(calculation2.get_result()) +
+#       "\n计算来源：" + calculation2.get_calculation_source_name())

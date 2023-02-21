@@ -18,10 +18,10 @@ class Function:
         """
         self.name = name
 
-    def run(self, floats: list):
+    def run(self, floats):
         """
         函数的运行逻辑，需要实现，在该方法中就是函数的主要作用
-        :param floats: 函数的形参，这是一个多参函数，函数的实参在这里被传递进来
+        :param floats: 函数的形参，这是一个多参函数，函数的实参在这里被传递进来，其中每一个元素都是在表达式中的一个函数形参
         :return: 运算结果，这个函数的返回值是一个多近一出的函数。
         """
         pass

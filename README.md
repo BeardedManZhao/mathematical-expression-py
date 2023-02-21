@@ -19,6 +19,9 @@ pip install mathematical_expression_py
 
 ### Use mathematical_ Expression package
 
+After version 1.2, the use of mathematical is supported_ The expression package obtains various computing components to
+reduce the amount of code and the difficulty of library calls.
+
 ```python
 # import mathematical expression parsing library
 import mathematical_expression as mathematical
@@ -29,6 +32,8 @@ s1, s2 = "1 + 20 - 2 + 4", "1 + 20 - (2 + 4)"
 prefixExpressionOperation = mathematical.prefixExpressionOperation.get_instance("prefixExpressionOperation")
 # Obtain the bracketed expression calculation component through the library
 bracketsCalculation2 = mathematical.bracketsCalculation2.get_instance("bracketsCalculation2")
+# Another way is to get the calculation component object, which is more similar to the writing method in Java
+# bracketsCalculation2 = mathematical.get_instance(mathematical.booleanCalculation2, "bracketsCalculation2")
 
 # Pass the first formula to the parenthesis expression calculation component Check and calculate the formula can also be passed to the parenthesis expression calculation
 prefixExpressionOperation.check(s1)
