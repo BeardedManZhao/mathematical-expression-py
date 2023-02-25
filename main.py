@@ -8,7 +8,7 @@
 # # 通过库获取到有括号表达式计算组件
 # # bracketsCalculation2 = mathematical.bracketsCalculation2.get_instance("bracketsCalculation2")
 # # 另一种方式获取到计算组件对象 这种方式更加类似Java中的写法
-# bracketsCalculation2 = mathematical.get_instance(mathematical.booleanCalculation2, "bracketsCalculation2")
+# bracketsCalculation2 = mathematical.get_instance(mathematical.bracketsCalculation2, "bracketsCalculation2")
 # # 将第一种公式传递给无括号表达式计算组件检查与计算 该公式也允许传递给有括号表达式计算
 # prefixExpressionOperation.check(s1)
 # calculation = prefixExpressionOperation.calculation(s1)
