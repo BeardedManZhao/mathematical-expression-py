@@ -23,6 +23,10 @@ def string_to_double(string: str):
         int_size = 0
         float_size = 0
         is_int: bool = True
+        # 判断是否为负数
+        is_f = string[0] == ConstantRegion.MINUS_SIGN
+        if is_f:
+            string = string[1:]
         for c in string:
             if c != ConstantRegion.DECIMAL_POINT and c != ConstantRegion.EMPTY:
                 if is_int:
@@ -36,7 +40,7 @@ def string_to_double(string: str):
                     raise AbnormalOperation(f"数值的浮点符号出现次数过多，无法计算{string}")
                 is_int = False
         res = int_res + float_res / NumberUtils.power_of_ten(10, float_size)
-        return res if string[0] != ConstantRegion.MINUS_SIGN else -res
+        return -res if is_f else res
     else:
         raise AbnormalOperation("运算出现错误，在进行字符串转数值的时候，字符串的长度为 0，导致错误的发生。")
 

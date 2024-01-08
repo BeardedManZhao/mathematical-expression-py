@@ -43,13 +43,16 @@ class PrefixExpressionOperation(NumberCalculation):
         str_stack: list = []
         # 创建临时字符串容器，用于存储每一个表达式的值
         temp: str = ConstantRegion.NO_CHAR
+        # 创建标记点 标记上一个是否是操作符
+        back_is_opt = True
         # 迭代表达式中的每一个字符
         for c in new_formula:
-            if c == ConstantRegion.PLUS_SIGN or c == ConstantRegion.MINUS_SIGN or \
-                    c == ConstantRegion.MULTIPLICATION_SIGN or c == ConstantRegion.DIVISION_SIGN or \
-                    c == ConstantRegion.REMAINDER_SIGN:
+            if (not back_is_opt) and (c == ConstantRegion.PLUS_SIGN or c == ConstantRegion.MINUS_SIGN or
+                                      c == ConstantRegion.MULTIPLICATION_SIGN or c == ConstantRegion.DIVISION_SIGN or
+                                      c == ConstantRegion.REMAINDER_SIGN):
                 length: int = len(str_stack)
-                # 如果是运算符，就将上一个字符串缓冲转换成为数值，稍后用于栈的添加
+                back_is_opt = True
+                # 如果上一个不是运算符，且当前是运算符，就将上一个字符串缓冲转换成为数值，稍后用于栈的添加
                 number: float = StrUtils.string_to_double(temp)
                 # 清理所有缓冲区字符
                 temp = ConstantRegion.NO_CHAR
@@ -68,9 +71,11 @@ class PrefixExpressionOperation(NumberCalculation):
                         # 如果当前运算符优先级大或相等，那么就直接将当前的值与运算符添加
                         double_stack.append(number)
                         str_stack.append(c)
-            elif c == ConstantRegion.DECIMAL_POINT or (c in NumberUtils.NumericalDictionary.keys()):
+            elif c == ConstantRegion.DECIMAL_POINT or c == ConstantRegion.MINUS_SIGN or (
+                    c in NumberUtils.NumericalDictionary.keys()):
                 # 如果当前是操作数，就直接将当前字符添加到缓冲区
                 temp += c
+                back_is_opt = False
         double_stack.append(StrUtils.string_to_double(temp))
         res: float = double_stack.pop()
         length = len(double_stack)

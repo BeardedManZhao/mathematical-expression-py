@@ -1,0 +1,18 @@
+[project]
+name = "mathematical-expression-py"
+version = "1.2.1"
+authors = [
+    { name = "BeardedManZhao", email = "liming7887@qq.com" },
+]
+description = "Python API concise framework for parsing string mathematical expressions"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/BeardedManZhao/mathematical-expression-py"
+"Bug Tracker" = "https://github.com/BeardedManZhao/mathematical-expression-py/issues"
