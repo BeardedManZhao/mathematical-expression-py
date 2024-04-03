@@ -83,6 +83,16 @@ def register_function(function: Function) -> bool:
         return True
 
 
+def register_function_expression(function: str):
+    """
+    将一个函数注册到管理者中
+    :param function: 需要注册的函数 对应的数学表达式
+    :return: 注册是否顺利，如果返回True代表注册成功！
+    """
+    from mathematical_expression.core.calculation.function import ExpressionFunction
+    return register_function(ExpressionFunction.parse(function))
+
+
 def unregister_function(function_name: str):
     """
     注销一个函数的注册，通过函数的名字对函数进行注销
@@ -101,3 +111,12 @@ def unregister(calculation_name: str):
     """
     logging.info(ConstantRegion.LOG_INFO_UNREGISTER_COMPONENT + calculation_name)
     return STRING_CALCULATION_HASH_MAP.pop(calculation_name)
+
+
+def is_function_exist(calculation_name: str):
+    """
+    判断一个函数是否存在
+    :param calculation_name: 需要被判断的函数名字
+    :return: 如果函数存在，返回 true
+    """
+    return calculation_name in STRING_CALCULATION_HASH_MAP

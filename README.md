@@ -566,9 +566,37 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
 计算来源：fastMultiplyOfIntervalsBrackets
 ```
 
+## Advanced Operations
+
+### Registration and use of mathematical function expressions
+
+```python
+import mathematical_expression as me
+
+# 实现一个函数 TODO 这个是数学表达式
+f = "f(x, y) = y + x * x"
+# 开始创建出来函数，并将其注册到管理者中
+me.register_function_expression(f)
+# 将新版函数计算组件获取到
+functionFormulaCalculation2 = me.functionFormulaCalculation2.get_instance("zhao")
+# 启用共享池
+functionFormulaCalculation2.startSharedPool = True
+# 构建需要被计算的数学表达式
+s = "2 * f(1 + 1, 3 - 1)"
+# 检查表达式
+functionFormulaCalculation2.check(s)
+# 计算表达式，并获取结果
+result = functionFormulaCalculation2.calculation(s)
+print(
+    f"计算层数：{result.get_result_layers()}"
+    f"\t计算结果：{result.get_result()}"
+    f"\t计算来源：{result.get_calculation_source_name()}"
+)
+```
+
 <hr>
 
-More information
+## More information
 
 - date: 2022-11-14
 - 切换至 [中文文档](https://github.com/BeardedManZhao/mathematical-expression-py/blob/main/README-Chinese.md)

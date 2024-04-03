@@ -4,7 +4,6 @@
 # @Email : liming7887@qq.com
 # @File : functionFormulaCalculation2.py
 # @Project : mathematical-expression-py
-from typing import List
 
 from mathematical_expression.core.calculation.SharedCalculation import SharedCalculation
 from mathematical_expression.core.calculation.number.functionFormulaCalculation import FunctionFormulaCalculation
@@ -71,21 +70,23 @@ def function_parameter_extraction2(string: str, start: list, end: list, names: l
     for i in range(0, len(string)):
         char = string[i]
         ascii_number: int = ord(char)
-        if ConstantRegion.BA_ASCII <= ascii_number <= ConstantRegion.BZ_ASCII or \
-                ConstantRegion.SZ_ASCII <= ascii_number <= ConstantRegion.SZ_ASCII:
+        if (ConstantRegion.BA_ASCII <= ascii_number <= ConstantRegion.BZ_ASCII) or \
+                (ConstantRegion.SA_ASCII <= ascii_number <= ConstantRegion.SZ_ASCII):
             # 如果是一个字母，代表是函数的名字，这里就切换状态并将名字添加到缓冲区
-            if b:
+            if not b:
                 b = True
-                start.append(i)
+                start.append(i + 1)
             function_name.append(char)
             start.append(start.pop() + 1)
         elif b and char == ConstantRegion.LEFT_BRACKET:
             count += 1
         elif b and char == ConstantRegion.RIGHT_BRACKET:
-            b = False
-            end.append(i)
-            names.append(ConstantRegion.NO_CHAR.join(names))
-            names.clear()
+            count -= 1
+            if count == 0:
+                b = False
+                end.append(i)
+                names.append(ConstantRegion.NO_CHAR.join(function_name))
+                function_name.clear()
 
 
 class FunctionFormulaCalculation2(FunctionFormulaCalculation, SharedCalculation):
@@ -105,6 +106,7 @@ class FunctionFormulaCalculation2(FunctionFormulaCalculation, SharedCalculation)
             start = list()
             end = list()
             names = list()
+            function_parameter_extraction2(formula, start, end, names)
         while len(start) != 0:
             pop1 = start.pop()
             pop2 = end.pop()
@@ -112,7 +114,7 @@ class FunctionFormulaCalculation2(FunctionFormulaCalculation, SharedCalculation)
             # 通过函数名字获取到函数
             function = CalculationManagement.get_function_by_name(pop3)
             # 通过索引计算出来函数形参
-            res_list: List[float] = list()
+            res_list: list[float] = list()
             for s in formula[pop1: pop2].split(ConstantRegion.COMMA):
                 res_list.append(super().BRACKETS_CALCULATION_2.calculation(s).get_result())
             formula = formula.replace(formula[pop1 - len(pop3) - 1: pop2 + 1], str(function.run(res_list)))

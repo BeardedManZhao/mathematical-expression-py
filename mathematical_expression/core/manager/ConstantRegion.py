@@ -9,7 +9,7 @@
 import logging
 from typing import List
 
-VERSION: float = 1.2
+VERSION: float = 1.24
 STRING_NULL: str = "null"
 LEFT_BRACKET: str = '('
 RIGHT_BRACKET: str = ')'

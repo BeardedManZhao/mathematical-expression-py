@@ -48,6 +48,14 @@ def register_function(fun):
     CalculationManagement.register_function(fun)
 
 
+def register_function_expression(fun):
+    """
+    注册一个函数到管理者函数库中
+    :param fun: 需要被注册的函数实现类对象
+    """
+    CalculationManagement.register_function_expression(fun)
+
+
 def unregister_function(fun):
     """
     取消注册一个函数

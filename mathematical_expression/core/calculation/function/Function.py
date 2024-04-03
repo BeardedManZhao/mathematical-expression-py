@@ -27,4 +27,7 @@ class Function:
         pass
 
     def get_name(self) -> str:
+        """
+        :return: 函数的名字
+        """
         return self.name
