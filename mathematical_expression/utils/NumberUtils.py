@@ -63,7 +63,7 @@ def priority_comparison(c1: str, c2: str):
     """
     return (c1 == ConstantRegion.PLUS_SIGN or c1 == ConstantRegion.MINUS_SIGN) and \
            (c2 == ConstantRegion.MULTIPLICATION_SIGN or c2 == ConstantRegion.DIVISION_SIGN or
-            c2 == ConstantRegion.REMAINDER_SIGN)
+            c2 == ConstantRegion.REMAINDER_SIGN or c2 == ConstantRegion.POW_SIGN)
 
 
 # 计算函数 每个操作符都对应了一个计算函数
