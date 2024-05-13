@@ -4,6 +4,8 @@
 # @Email : liming7887@qq.com
 # @File : NumberUtils.py
 # @Project : mathematical_expression-py
+import math
+
 from mathematical_expression.core.manager import ConstantRegion
 from mathematical_expression.exceptional.AbnormalOperation import AbnormalOperation
 
@@ -64,6 +66,17 @@ def priority_comparison(c1: str, c2: str):
             c2 == ConstantRegion.REMAINDER_SIGN)
 
 
+# 计算函数 每个操作符都对应了一个计算函数
+calculation_function = {
+    ConstantRegion.PLUS_SIGN: lambda an, bn: an + bn,
+    ConstantRegion.MINUS_SIGN: lambda an, bn: an - bn,
+    ConstantRegion.MULTIPLICATION_SIGN: lambda an, bn: an * bn,
+    ConstantRegion.DIVISION_SIGN: lambda an, bn: an / bn,
+    ConstantRegion.REMAINDER_SIGN: lambda an, bn: an % bn,
+    ConstantRegion.POW_SIGN: lambda an, bn: math.pow(an, bn),
+}
+
+
 def calculation(calculation_char: str, an: float, bn: float) -> float:
     """
     使用不同的字符，计算两个数值
@@ -72,16 +85,8 @@ def calculation(calculation_char: str, an: float, bn: float) -> float:
     :param bn: 数值2
     :return: 数值1与数值2之间进行运算的结果数值，如果运算符错误，则抛出异常
     """
-    if calculation_char == ConstantRegion.PLUS_SIGN:
-        return an + bn
-    elif calculation_char == ConstantRegion.MINUS_SIGN:
-        return an - bn
-    elif calculation_char == ConstantRegion.MULTIPLICATION_SIGN:
-        return an * bn
-    elif calculation_char == ConstantRegion.DIVISION_SIGN:
-        return an / bn
-    elif calculation_char == ConstantRegion.REMAINDER_SIGN:
-        return an % bn
+    if calculation_char in calculation_function:
+        return calculation_function[calculation_char](an, bn)
     else:
         raise AbnormalOperation(
             "操作数计算异常，您的计算模式不存在，错误的计算模式 = [" + calculation_char +
@@ -90,6 +95,19 @@ def calculation(calculation_char: str, an: float, bn: float) -> float:
             "mode does not exist. Wrong "
             "calculation mode "
             "= [" + calculation_char + "]")
+
+
+# 比较函数 每个操作符都对应了一个比较操作
+comparison_function = {
+    ConstantRegion.GREATER_THAN_SIGN: lambda left, r: left > r,
+    ConstantRegion.LESS_THAN_SIGN: lambda left, r: left < r,
+    ConstantRegion.GREATER_THAN_OR_EQUAL_TO_SIGN: lambda left, r: left >= r,
+    ConstantRegion.LESS_THAN_OR_EQUAL_TO_SIGN: lambda left, r: left <= r,
+    ConstantRegion.EQUAL_SIGN1: lambda left, r: left == r,
+    ConstantRegion.EQUAL_SIGN2: lambda left, r: left == r,
+    ConstantRegion.NOT_EQUAL_SIGN1: lambda left, r: left != r,
+    ConstantRegion.NOT_EQUAL_SIGN2: lambda left, r: left != r,
+}
 
 
 def comparison_operation(calculation_char: str, left: float, right: float) -> bool:
@@ -101,18 +119,8 @@ def comparison_operation(calculation_char: str, left: float, right: float) -> bo
     :return:左值 与 右值 之间是否符合比较运算符的关系
             Whether the left value and right value conform to the comparison operator
     """
-    if calculation_char == ConstantRegion.GREATER_THAN_SIGN:
-        return left > right
-    elif calculation_char == ConstantRegion.LESS_THAN_SIGN:
-        return left < right
-    elif calculation_char == ConstantRegion.GREATER_THAN_OR_EQUAL_TO_SIGN:
-        return left >= right
-    elif calculation_char == ConstantRegion.LESS_THAN_OR_EQUAL_TO_SIGN:
-        return left <= right
-    elif calculation_char == ConstantRegion.EQUAL_SIGN1 or calculation_char == ConstantRegion.EQUAL_SIGN2:
-        return left == right
-    elif calculation_char == ConstantRegion.NOT_EQUAL_SIGN1 or calculation_char == ConstantRegion.NOT_EQUAL_SIGN2:
-        return left != right
+    if calculation_char in comparison_function:
+        return comparison_function[calculation_char](left, right)
     else:
         raise AbnormalOperation("无法进行比较运算，因为有错误的运算符。\n"
                                 "The comparison operation cannot be performed because there is an incorrect operator.\n"

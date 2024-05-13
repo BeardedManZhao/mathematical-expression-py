@@ -49,7 +49,7 @@ class PrefixExpressionOperation(NumberCalculation):
         for c in new_formula:
             if (not back_is_opt) and (c == ConstantRegion.PLUS_SIGN or c == ConstantRegion.MINUS_SIGN or
                                       c == ConstantRegion.MULTIPLICATION_SIGN or c == ConstantRegion.DIVISION_SIGN or
-                                      c == ConstantRegion.REMAINDER_SIGN):
+                                      c == ConstantRegion.REMAINDER_SIGN or c == ConstantRegion.POW_SIGN):
                 length: int = len(str_stack)
                 back_is_opt = True
                 # 如果上一个不是运算符，且当前是运算符，就将上一个字符串缓冲转换成为数值，稍后用于栈的添加
