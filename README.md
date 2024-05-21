@@ -181,7 +181,7 @@ print("计算层数：" + str(calculation.get_result_layers()) + "\n计算结果
   operand and operator with the current operand to form a new value, and then put it on the stack.
 - API Usage Example
 
-  The operators supported by this component are： a+b a-b a*b a/b a%b
+  The operators supported by this component are： `a+b` `a-b` `a*b` `a/b` `a%b` `a^b`
 
 ```python
 # This is a sample Python script.

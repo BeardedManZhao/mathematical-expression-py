@@ -1,6 +1,6 @@
 [project]
 name = "mathematical-expression-py"
-version = "1.2.4"
+version = "1.2.5"
 authors = [
     { name = "BeardedManZhao", email = "liming7887@qq.com" },
 ]

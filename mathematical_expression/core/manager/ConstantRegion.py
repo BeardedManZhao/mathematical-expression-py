@@ -9,7 +9,7 @@
 import logging
 from typing import List
 
-VERSION: float = 1.24
+VERSION: float = 1.25
 STRING_NULL: str = "null"
 LEFT_BRACKET: str = '('
 RIGHT_BRACKET: str = ')'
@@ -78,7 +78,7 @@ def re_fresh():
     REGULAR_CONTAINS_ADDSUB = "\\+" + MINUS_SIGN + "|" + MINUS_SIGN + "\\+" \
         if PLUS_SIGN == '+' else \
         PLUS_SIGN + MINUS_SIGN + '|' + MINUS_SIGN + PLUS_SIGN
-    ARITHMETIC_OPERATOR_STRING: str = PLUS_SIGN.join(
+    ARITHMETIC_OPERATOR_STRING = PLUS_SIGN.join(
         [MINUS_SIGN, MULTIPLICATION_SIGN, DIVISION_SIGN, REMAINDER_SIGN, POW_SIGN])
     EQUAL_SIGN2 = EQUAL_SIGN1 + EQUAL_SIGN1
     NOT_EQUAL_SIGN1 = NEGATE_SIGN + EQUAL_SIGN1
@@ -91,8 +91,8 @@ def re_fresh():
                                                                            EQUAL_SIGN2, LESS_THAN_SIGN,
                                                                            EQUAL_SIGN1,
                                                                            GREATER_THAN_SIGN)
-    LEGAL_CHARACTERS: set = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                             EMPTY, PLUS_SIGN, MINUS_SIGN,
-                             MULTIPLICATION_SIGN, DIVISION_SIGN,
-                             REMAINDER_SIGN, POW_SIGN,
-                             LEFT_BRACKET, RIGHT_BRACKET, DECIMAL_POINT}
+    LEGAL_CHARACTERS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                        EMPTY, PLUS_SIGN, MINUS_SIGN,
+                        MULTIPLICATION_SIGN, DIVISION_SIGN,
+                        REMAINDER_SIGN, POW_SIGN,
+                        LEFT_BRACKET, RIGHT_BRACKET, DECIMAL_POINT}
