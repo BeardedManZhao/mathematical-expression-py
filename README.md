@@ -14,7 +14,7 @@ result object.
 - pip Get Command
 
 ```shell
-pip install mathematical_expression_py
+pip install mathematical-expression-py
 ```
 
 ## Framework
