@@ -11,7 +11,7 @@
 - pip获取命令
 
 ```shell
-pip install mathematical_expression_py
+pip install mathematical-expression-py
 ```
 
 ## 框架架构
